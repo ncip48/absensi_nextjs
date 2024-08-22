@@ -3,26 +3,54 @@
 import React, { FormEvent, useState } from "react";
 import { login } from "../lib";
 import { useRouter } from "next/navigation";
-import { Metadata } from "next";
-
-// export const metadata: Metadata = {
-//   title: "Auth",
-// };
+import toast from "react-hot-toast";
+import { z } from "zod";
 
 function Index() {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [errors, setErrors] = useState<any[]>([]);
+
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setIsLoading(true);
 
-    const formData = new FormData(event.currentTarget);
-    await login(formData);
+    try {
+      const formData = new FormData(event.currentTarget);
 
-    router.push("/dashboard");
+      const schema = z.object({
+        email: z.string().email(),
+        password: z.coerce.string().min(8),
+      });
+
+      const response = schema.safeParse({
+        email: formData.get("email"),
+        password: formData.get("password"),
+      });
+
+      // refine errors
+      if (!response.success) {
+        let errArr: any[] = [];
+        const { errors: err } = response.error;
+        for (var i = 0; i < err.length; i++) {
+          errArr.push({ for: err[i].path[0], message: err[i].message });
+        }
+        setErrors(errArr);
+
+        throw err;
+      }
+
+      setErrors([]);
+    } catch (error: any) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
-      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen lg:py-0">
         <a
           href="#"
           className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
@@ -50,6 +78,9 @@ function Index() {
                   className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="name@company.com"
                 />
+                <div className="mt-1 text-xs text-red-500">
+                  {errors.find((error) => error.for === "email")?.message}
+                </div>
               </div>
               <div>
                 <label
@@ -66,6 +97,9 @@ function Index() {
                   autoComplete="off"
                   className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 />
+                <div className="mt-1 text-xs text-red-500">
+                  {errors.find((error) => error.for === "password")?.message}
+                </div>
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-start">
