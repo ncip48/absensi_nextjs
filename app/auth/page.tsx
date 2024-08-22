@@ -40,6 +40,8 @@ function Index() {
         throw err;
       }
 
+      router.push("/dashboard");
+
       setErrors([]);
     } catch (error: any) {
       console.error(error);
@@ -71,7 +73,7 @@ function Index() {
                   Your email
                 </label>
                 <input
-                  type="email"
+                  type="text"
                   name="email"
                   id="email"
                   autoComplete="off"
