@@ -19,7 +19,7 @@ function Index() {
       const formData = new FormData(event.currentTarget);
 
       const schema = z.object({
-        email: z.string().email(),
+        email: z.string().min(1, { message: "This field is required" }).email(),
         password: z.coerce.string().min(8),
       });
 
@@ -36,10 +36,10 @@ function Index() {
           errArr.push({ for: err[i].path[0], message: err[i].message });
         }
         setErrors(errArr);
-
         throw err;
       }
 
+      await login(formData);
       router.push("/dashboard");
 
       setErrors([]);

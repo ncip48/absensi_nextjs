@@ -27,6 +27,8 @@ export async function login(formData: FormData) {
 
   const user = { email: formData.get("email"), name: "John" };
 
+  console.log(user);
+
   // Create the session
   const expires = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
   const session = await encrypt({ user, expires });

@@ -10,4 +10,9 @@ export default async function middleware(req: NextRequest) {
     const absoluteURL = new URL("/auth", req.nextUrl.origin);
     return NextResponse.redirect(absoluteURL.toString());
   }
+
+  if (getAuth && req.nextUrl.pathname == "/auth") {
+    const absoluteURL = new URL("/dashboard", req.nextUrl.origin);
+    return NextResponse.redirect(absoluteURL.toString());
+  }
 }
