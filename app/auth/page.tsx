@@ -20,7 +20,7 @@ function Index() {
 
       const schema = z.object({
         email: z.string().min(1, { message: "This field is required" }).email(),
-        password: z.coerce.string().min(8),
+        password: z.string().min(8),
       });
 
       const response = schema.safeParse({
