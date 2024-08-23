@@ -15,7 +15,7 @@ function Index() {
     setLoading(true);
     let res = await getStudents();
     res?.map((item: any) => {
-      item.sex = item.sex === 1 ? "Laki-Laki" : "Perempuan";
+      item.sex_str = item.sex === 1 ? "Laki-Laki" : "Perempuan";
     });
     // console.table(res);
     setStudents(res);
@@ -34,7 +34,7 @@ function Index() {
           items={students}
           loading={loading}
           heads={["NIS", "NISN", "Nama", "Jenis Kelamin", "Status"]}
-          keys={["nis", "nisn", "name", "sex"]}
+          keys={["nis", "nisn", "name", "sex_str"]}
         />
       </CardMain>
     </>

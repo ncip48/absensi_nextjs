@@ -12,7 +12,7 @@ function Table({ items = [], loading, heads = [], keys = [] }: TableProps) {
     <table className="w-full min-w-[640px] table-auto">
       <thead>
         <tr>
-          <th className="border-b border-blue-gray-50 py-3 px-5 text-left">
+          <th className="border-b border-bluegray-50 py-3 px-5 text-left">
             <p className="block antialiased font-sans text-[11px] font-bold uppercase text-blue-gray-400">
               No
             </p>
@@ -20,7 +20,7 @@ function Table({ items = [], loading, heads = [], keys = [] }: TableProps) {
           {heads?.map((item: any, index: number) => {
             return (
               <th
-                className="border-b border-blue-gray-50 py-3 px-5 text-left"
+                className="border-b border-bluegray-50 py-3 px-5 text-left"
                 key={index}
               >
                 <p className="block antialiased font-sans text-[11px] font-bold uppercase text-blue-gray-400">
@@ -29,7 +29,7 @@ function Table({ items = [], loading, heads = [], keys = [] }: TableProps) {
               </th>
             );
           })}
-          <th className="border-b border-blue-gray-50 py-3 px-5 text-left">
+          <th className="border-b border-bluegray-50 py-3 px-5 text-left">
             <p className="block antialiased font-sans text-[11px] font-bold uppercase text-blue-gray-400">
               Aksi
             </p>
@@ -39,7 +39,7 @@ function Table({ items = [], loading, heads = [], keys = [] }: TableProps) {
       <tbody>
         {loading ? (
           <tr>
-            <td colSpan={heads?.length + 1} className="text-center">
+            <td colSpan={heads?.length + 2} className="text-center">
               <p className="block antialiased font-sans text-xs font-semibold text-blue-gray-600 p-5">
                 Loading...
               </p>
@@ -47,7 +47,7 @@ function Table({ items = [], loading, heads = [], keys = [] }: TableProps) {
           </tr>
         ) : items?.length === 0 ? (
           <tr>
-            <td colSpan={heads?.length + 1} className="text-center">
+            <td colSpan={heads?.length + 2} className="text-center">
               <p className="block antialiased font-sans text-xs font-semibold text-blue-gray-600 p-5">
                 Data kosong
               </p>
@@ -57,7 +57,13 @@ function Table({ items = [], loading, heads = [], keys = [] }: TableProps) {
           items?.map((item: any, index: number) => {
             return (
               <tr key={index}>
-                <td className="py-3 px-5 border-b border-blue-gray-50">
+                <td
+                  className={`py-3 px-5 ${
+                    index === items.length - 1
+                      ? ""
+                      : "border-b border-bluegray-50"
+                  }`}
+                >
                   <p className="block antialiased font-sans text-xs font-semibold text-blue-gray-600">
                     {index + 1}
                   </p>
@@ -65,7 +71,11 @@ function Table({ items = [], loading, heads = [], keys = [] }: TableProps) {
                 {keys.map((it: any, i: number) => {
                   return (
                     <td
-                      className="py-3 px-5 border-b border-blue-gray-50"
+                      className={`py-3 px-5 ${
+                        index === items.length - 1
+                          ? ""
+                          : "border-b border-bluegray-50"
+                      }`}
                       key={i}
                     >
                       <p className="block antialiased font-sans text-xs font-semibold text-blue-gray-600">
@@ -74,7 +84,13 @@ function Table({ items = [], loading, heads = [], keys = [] }: TableProps) {
                     </td>
                   );
                 })}
-                <td className="py-3 px-5 border-b border-blue-gray-50">
+                <td
+                  className={`py-3 px-5 ${
+                    index === items.length - 1
+                      ? ""
+                      : "border-b border-bluegray-50"
+                  }`}
+                >
                   <div
                     className="relative grid items-center font-sans uppercase whitespace-nowrap select-none bg-gradient-to-tr from-green-600 to-green-400 text-white rounded-lg py-0.5 px-2 text-[11px] font-medium w-fit"
                     data-projection-id="45"
@@ -83,7 +99,13 @@ function Table({ items = [], loading, heads = [], keys = [] }: TableProps) {
                     <span className="">Aktif</span>
                   </div>
                 </td>
-                <td className="py-3 px-5 border-b border-blue-gray-50">
+                <td
+                  className={`py-3 px-5 ${
+                    index === items.length - 1
+                      ? ""
+                      : "border-b border-bluegray-50"
+                  }`}
+                >
                   <a
                     href="#"
                     className="block antialiased font-sans text-xs font-semibold text-blue-gray-600"

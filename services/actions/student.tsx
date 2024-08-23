@@ -1,4 +1,4 @@
-"use client";
+"use server";
 
 import toast from "react-hot-toast";
 import { baseUrl } from "../constants";
@@ -17,7 +17,7 @@ export async function getStudents() {
     const response = await axios.get(`${baseUrl}/students/v1/show`, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer s${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     const result = response.data;

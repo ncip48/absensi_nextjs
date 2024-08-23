@@ -15,7 +15,7 @@ export function Footer({
   return (
     <footer className="py-2">
       <div className="flex w-full flex-wrap items-center justify-center gap-6 px-2 md:justify-between">
-        <p className="block antialiased font-sans text-sm leading-normal font-normal text-inherit dark:text-gray-900">
+        <p className="block antialiased font-sans text-sm leading-normal font-normal text-inherit dark:text-gray-100">
           &copy; {year}, made with{" "}
           <HeartIcon className="-mt-0.5 inline-block h-3.5 w-3.5 text-red-600" />{" "}
           by{" "}

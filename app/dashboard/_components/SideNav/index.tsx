@@ -23,7 +23,7 @@ export function Sidenav({
 }) {
   const pathname = usePathname();
   const [openSidenav, setOpenSidenav] = useState(true);
-  const sidenavType = "dark";
+  const sidenavType = "transparent";
   const sidenavTypes = {
     dark: "bg-gradient-to-br from-gray-800 to-gray-900",
     white: "bg-white shadow-sm",
@@ -34,7 +34,7 @@ export function Sidenav({
     <aside
       className={`${sidenavTypes[sidenavType]} ${
         openSidenav ? "translate-x-0" : "-translate-x-80"
-      } fixed inset-0 z-50 my-4 ml-4 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0 border border-blue-gray-100`}
+      } fixed inset-0 z-50 my-4 ml-4 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0 borders borders-blue-gray-100`}
     >
       <div className={`relative`}>
         <Link href="/dashboard" className="py-6 px-8 text-center">
@@ -49,8 +49,8 @@ export function Sidenav({
             <button
               className={`align-middle select-none font-sans font-bold text-center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 rounded-lg ${
                 path === pathname
-                  ? "bg-white text-blue-gray-900 shadow-md shadow-blue-gray-500/10 hover:shadow-lg hover:shadow-blue-gray-500/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
-                  : "text-white hover:bg-white/10 active:bg-white/30"
+                  ? "bg-dark-800 text-white shadow-md shadow-blue-gray-500/10 hover:shadow-lg hover:shadow-blue-gray-500/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
+                  : "text-gray-500 active:bg-dark-800"
               } w-full flex items-center gap-4 px-4 capitalize`}
             >
               {icon}
@@ -64,7 +64,7 @@ export function Sidenav({
           onClick={(e) => {
             logout();
           }}
-          className={`align-middle select-none font-sans font-bold text-center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 rounded-lg text-white hover:bg-white/10 active:bg-white/30" w-full flex items-center gap-4 px-4 capitalize`}
+          className={`align-middle select-none font-sans font-bold text-center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 rounded-lg text-white active:bg-white/30 dark:text-gray-500 w-full flex items-center gap-4 px-4 capitalize`}
         >
           <ArrowLeftStartOnRectangleIcon className="w-5 h-5 text-inherit" />
           <p className="block antialiased font-sans text-base leading-relaxed text-inherit font-medium capitalize">
