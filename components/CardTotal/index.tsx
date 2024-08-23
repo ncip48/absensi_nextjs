@@ -10,7 +10,7 @@ interface CardTotalInterface {
 function CardTotal({ value, icon, label, subtitle }: CardTotalInterface) {
   return (
     <div className="relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 border border-blue-gray-100 shadow-sm dark:bg-dark-800 dark:border-dark-800 dark:text-white">
-      <div className="bg-clip-border mt-4 mx-4 rounded-xl overflow-hidden bg-gradient-to-tr from-gray-900 to-gray-800 text-white shadow-gray-900/20 absolute grid h-12 w-12 place-items-center">
+      <div className="bg-clip-border mt-4 mx-4 rounded-xl overflow-hidden dark:bg-dark-900 text-white shadow-gray-900/20 absolute grid h-12 w-12 place-items-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"

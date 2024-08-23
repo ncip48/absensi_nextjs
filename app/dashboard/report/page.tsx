@@ -1,11 +1,11 @@
 "use client";
 
 import Table from "@/components/Table";
-import { getStudents } from "@/services/actions/student";
 import useEffectAfterMount from "@/utils/useEffectAfterMount";
 import React, { useState } from "react";
 import DashboardNavbar from "../_components/DashboardNavbar";
 import CardMain from "@/components/CardMain";
+import { getAttendances } from "@/services/actions/report";
 
 function Index() {
   const [students, setStudents] = useState([]);
@@ -13,9 +13,14 @@ function Index() {
 
   const getData = async () => {
     setLoading(true);
-    let res = await getStudents();
+    let res = await getAttendances();
     res?.map((item: any) => {
-      item.sex = item.sex === 1 ? "Laki-Laki" : "Perempuan";
+      item.timein_parse = new Date(item.timein).toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false,
+      });
     });
     // console.table(res);
     setStudents(res);
@@ -33,8 +38,10 @@ function Index() {
         <Table
           items={students}
           loading={loading}
-          heads={["NIS", "NISN", "Nama", "Jenis Kelamin", "Status"]}
-          keys={["nis", "nisn", "name", "sex"]}
+          heads={["NIS", "Nama", "Jam Masuk"]}
+          keys={["student.nis", "student.name", "timein_parse"]}
+          noAction
+          noStatus
         />
       </CardMain>
     </>
