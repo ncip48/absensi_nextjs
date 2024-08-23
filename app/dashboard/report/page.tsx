@@ -32,7 +32,11 @@ function Index() {
         second: "2-digit",
         hour12: false,
       });
-      item.tanggal = new Date(item.timein).toLocaleDateString();
+      item.tanggal = new Date(item.timein).toLocaleDateString("id-ID", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      });
     });
     // console.table(res);
     setStudents(res);
