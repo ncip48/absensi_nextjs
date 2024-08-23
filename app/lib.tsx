@@ -22,10 +22,10 @@ export async function decrypt(input: string): Promise<any> {
   return payload;
 }
 
-export async function login(formData: FormData) {
+export async function login(token: String) {
   // Verify credentials && get the user
 
-  const user = { email: formData.get("email"), name: "John" };
+  const user = { token };
 
   console.log(user);
 

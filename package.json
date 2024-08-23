@@ -1,5 +1,5 @@
 {
-  "name": "quiz",
+  "name": "absensi",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@heroicons/react": "^2.1.5",
     "jose": "^5.7.0",
     "next": "14.2.5",
     "react": "^18",
