@@ -19,7 +19,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const sidenavType = "dark";
-  const routes = [
+  const routes: any = [
     {
       icon: <HomeIcon {...icon} />,
       name: "dashboard",

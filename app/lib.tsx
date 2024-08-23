@@ -2,6 +2,7 @@
 
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
 
 const secretKey = "secret";
@@ -40,6 +41,7 @@ export async function login(token: String) {
 export async function logout() {
   // Destroy the session
   cookies().set("session", "", { expires: new Date(0) });
+  redirect("/auth");
 }
 
 export async function getSession() {

@@ -1,8 +1,9 @@
-"use client";
+"use server";
 
 import toast from "react-hot-toast";
 import { baseUrl } from "../constants";
-import { getSession } from "@/app/lib";
+import { getSession, logout } from "@/app/lib";
+import axios from "axios";
 
 interface FormLoginProps {
   username: string;
@@ -13,22 +14,29 @@ export async function getStudents() {
   try {
     const storage = await getSession();
     const token = storage.user.token;
-    const response = await fetch(`${baseUrl}/students/v1/show`, {
-      method: "GET",
+    const response = await axios.get(`${baseUrl}/students/v1/show`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     });
-    const result = await response.json();
-    console.log("result", result);
+    const result = response.data;
     if (result.status !== 200) {
       toast.error(result.message);
-      return null;
+      return [];
     } else {
       return result.data;
     }
   } catch (error: any) {
+    if (error.response) {
+      console.log(error.response.data);
+      console.log(error.response.status);
+      console.log(error.response.headers);
+      if (error.response.status === 401) {
+        // await logout();
+        toast.error(error.message);
+      }
+    }
     toast.error(error.message);
   }
 }

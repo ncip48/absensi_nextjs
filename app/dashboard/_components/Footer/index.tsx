@@ -1,9 +1,9 @@
 import { HeartIcon } from "@heroicons/react/24/solid";
 
 interface FooterProps {
-  brandName: string;
-  brandLink: string;
-  routes: Array<{ name: string; path: string }>;
+  brandName?: string;
+  brandLink?: string;
+  routes?: Array<{ name: string; path: string }>;
 }
 
 export function Footer({

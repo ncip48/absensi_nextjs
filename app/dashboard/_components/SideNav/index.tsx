@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { ArrowLeftStartOnRectangleIcon } from "@heroicons/react/24/solid";
 import { logout } from "@/app/lib";
 
@@ -11,9 +10,9 @@ interface SidenavProps {
   brandImg: string;
   brandName: string;
   routes: Array<{
-    layout: string;
-    title: string;
-    pages: Array<{ name: string; path: string }>;
+    icon: string;
+    name: string;
+    path: string;
   }>;
 }
 
@@ -23,7 +22,6 @@ export function Sidenav({
   routes = [],
 }) {
   const pathname = usePathname();
-  const router = useRouter();
   const [openSidenav, setOpenSidenav] = useState(true);
   const sidenavType = "dark";
   const sidenavTypes = {
@@ -65,7 +63,6 @@ export function Sidenav({
         <button
           onClick={(e) => {
             logout();
-            router.push("/auth");
           }}
           className={`align-middle select-none font-sans font-bold text-center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 rounded-lg text-white hover:bg-white/10 active:bg-white/30" w-full flex items-center gap-4 px-4 capitalize`}
         >
