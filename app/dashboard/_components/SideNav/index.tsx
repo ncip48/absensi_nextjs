@@ -3,7 +3,9 @@
 import Link from "next/link";
 import { useState } from "react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { ArrowLeftStartOnRectangleIcon } from "@heroicons/react/24/solid";
+import { logout } from "@/app/lib";
 
 interface SidenavProps {
   brandImg: string;
@@ -21,6 +23,7 @@ export function Sidenav({
   routes = [],
 }) {
   const pathname = usePathname();
+  const router = useRouter();
   const [openSidenav, setOpenSidenav] = useState(true);
   const sidenavType = "dark";
   const sidenavTypes = {
@@ -41,12 +44,6 @@ export function Sidenav({
             {brandName}
           </h6>
         </Link>
-        <span
-          className="absolute right-0 top-0 grid rounded-br-none rounded-tl-none xl:hidden"
-          onClick={() => setOpenSidenav(false)}
-        >
-          <XMarkIcon strokeWidth={2.5} className="h-5 w-5 text-white" />
-        </span>
       </div>
       <div className="m-4">
         {routes.map(({ icon, name, path }: any) => (
@@ -65,6 +62,18 @@ export function Sidenav({
             </button>
           </Link>
         ))}
+        <button
+          onClick={(e) => {
+            logout();
+            router.push("/auth");
+          }}
+          className={`align-middle select-none font-sans font-bold text-center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 rounded-lg text-white hover:bg-white/10 active:bg-white/30" w-full flex items-center gap-4 px-4 capitalize`}
+        >
+          <ArrowLeftStartOnRectangleIcon className="w-5 h-5 text-inherit" />
+          <p className="block antialiased font-sans text-base leading-relaxed text-inherit font-medium capitalize">
+            Logout
+          </p>
+        </button>
       </div>
     </aside>
   );
