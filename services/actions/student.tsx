@@ -1,4 +1,4 @@
-"use server";
+"use client";
 
 import toast from "react-hot-toast";
 import { baseUrl } from "../constants";
@@ -17,7 +17,7 @@ export async function getStudents() {
     const response = await axios.get(`${baseUrl}/students/v1/show`, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer s${token}`,
       },
     });
     const result = response.data;
@@ -35,8 +35,10 @@ export async function getStudents() {
       if (error.response.status === 401) {
         // await logout();
         toast.error(error.message);
+        return;
       }
     }
     toast.error(error.message);
+    return;
   }
 }

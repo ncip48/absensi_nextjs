@@ -28,67 +28,15 @@ export default function DashboardLayout({
     {
       icon: <UserCircleIcon {...icon} />,
       name: "Siswa",
-      path: "/dashboard/siswa",
+      path: "/siswa",
     },
     {
       icon: <DocumentIcon {...icon} />,
       name: "report",
-      path: "/dashboard/report",
+      path: "/report",
     },
   ];
   return (
-    // <section className="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-    //   {/* Include shared UI here e.g. a header or sidebar */}
-    //   <div className="flex h-screen">
-    //     <aside className="w-64 bg-gray-800 text-gray-100 dark:bg-gray-700 dark:text-gray-200">
-    //       <div className="p-4">
-    //         <h2 className="text-xl font-bold">Admin Panel</h2>
-    //         <ul className="mt-4 space-y-2">
-    //           <li>
-    //             <a
-    //               href="#"
-    //               className="block px-4 py-2 hover:bg-gray-700 dark:hover:bg-gray-600"
-    //             >
-    //               Dashboard
-    //             </a>
-    //           </li>
-    //           <li>
-    //             <a
-    //               href="#"
-    //               className="block px-4 py-2 hover:bg-gray-700 dark:hover:bg-gray-600"
-    //             >
-    //               Users
-    //             </a>
-    //           </li>
-    //           <li>
-    //             <a
-    //               href="#"
-    //               className="block px-4 py-2 hover:bg-gray-700 dark:hover:bg-gray-600"
-    //             >
-    //               Settings
-    //             </a>
-    //           </li>
-    //         </ul>
-    //       </div>
-    //     </aside>
-
-    //     <div className="flex-1 flex flex-col">
-    //       <header className="bg-white shadow p-4 flex justify-between items-center dark:bg-gray-800 dark:text-gray-200">
-    //         <div className="text-xl font-semibold">Dashboard</div>
-    //         <div className="space-x-4">
-    //           <button className="bg-blue-500 text-white px-4 py-2 rounded dark:bg-blue-600">
-    //             Notifications
-    //           </button>
-    //           <button className="bg-blue-500 text-white px-4 py-2 rounded">
-    //             Profile
-    //           </button>
-    //         </div>
-    //       </header>
-
-    //       {children}
-    //     </div>
-    //   </div>
-    // </section>
     <div className="min-h-screen bg-blue-gray-50/50">
       <Sidenav
         routes={routes}

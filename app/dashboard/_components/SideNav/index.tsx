@@ -38,12 +38,12 @@ export function Sidenav({
     >
       <div className={`relative`}>
         <Link href="/dashboard" className="py-6 px-8 text-center">
-          <h6 className="block antialiased tracking-normal font-sans text-base font-semibold leading-relaxed text-white">
+          <h6 className="block antialiased tracking-normal font-sans text-base font-bold leading-relaxed text-white">
             {brandName}
           </h6>
         </Link>
       </div>
-      <div className="m-4">
+      <div className="m-4 mb-4 flex flex-col gap-1">
         {routes.map(({ icon, name, path }: any) => (
           <Link href={path} key={name}>
             <button

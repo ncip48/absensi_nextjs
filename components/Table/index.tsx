@@ -40,7 +40,7 @@ function Table({ items = [], loading, heads = [], keys = [] }: TableProps) {
         {loading ? (
           <tr>
             <td colSpan={heads?.length + 1} className="text-center">
-              <p className="block antialiased font-sans text-xs font-semibold text-blue-gray-600">
+              <p className="block antialiased font-sans text-xs font-semibold text-blue-gray-600 p-5">
                 Loading...
               </p>
             </td>
@@ -48,7 +48,7 @@ function Table({ items = [], loading, heads = [], keys = [] }: TableProps) {
         ) : items?.length === 0 ? (
           <tr>
             <td colSpan={heads?.length + 1} className="text-center">
-              <p className="block antialiased font-sans text-xs font-semibold text-blue-gray-600">
+              <p className="block antialiased font-sans text-xs font-semibold text-blue-gray-600 p-5">
                 Data kosong
               </p>
             </td>
