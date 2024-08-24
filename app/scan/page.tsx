@@ -2,12 +2,9 @@
 
 import React, { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
 import { z } from "zod";
-import Button from "@/components/Button";
 import Input from "@/components/Input";
-import { loginServices } from "@/services/actions/login";
-import { presentByNIS } from "@/services/actions/absent";
+import { presentByNISwithToken } from "@/services/actions/absent";
 import useEffectAfterMount from "@/utils/useEffectAfterMount";
 import { QrCodeIcon } from "@heroicons/react/24/solid";
 
@@ -53,9 +50,7 @@ function Index() {
         throw err;
       }
 
-      const res = await presentByNIS(response.data.nis);
-      if (res) {
-      }
+      const res = await presentByNISwithToken(response.data.nis);
 
       setErrors([]);
     } catch (error: any) {
