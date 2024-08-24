@@ -1,3 +1,4 @@
+import { QrCodeIcon, UserIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import React from "react";
 
@@ -38,6 +39,15 @@ function DashboardNavbar({ active }: { active: string }) {
               />
             </div>
           </div>
+          <Link
+            href="/scan"
+            className="p-2 dark:bg-dark-800 rounded-full md:mr-4"
+          >
+            <QrCodeIcon className="w-5 h-5 text-inherit" />
+          </Link>
+          <Link href="/akun" className="p-2 dark:bg-dark-800 rounded-full">
+            <UserIcon className="w-5 h-5 text-inherit" />
+          </Link>
         </div>
       </div>
     </nav>

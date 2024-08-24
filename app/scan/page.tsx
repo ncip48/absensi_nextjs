@@ -1,7 +1,6 @@
 "use client";
 
 import React, { FormEvent, useState } from "react";
-import { login } from "../lib";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { z } from "zod";
@@ -11,7 +10,6 @@ import { loginServices } from "@/services/actions/login";
 import { presentByNIS } from "@/services/actions/absent";
 import useEffectAfterMount from "@/utils/useEffectAfterMount";
 import { QrCodeIcon } from "@heroicons/react/24/solid";
-import { getSession } from "./lib";
 
 function Index() {
   const router = useRouter();
@@ -21,23 +19,13 @@ function Index() {
   const [thisTime, setThisTime] = useState<any>("");
 
   useEffectAfterMount(() => {
-    // const interval = setInterval(() => {
-    //   const date = new Date();
-    //   date.setHours(date.getHours() + 7);
-    //   setThisTime(date.toISOString().slice(11, 19));
-    // }, 1000);
-    // return () => clearInterval(interval);
-    checkAuth();
+    const interval = setInterval(() => {
+      const date = new Date();
+      date.setHours(date.getHours() + 7);
+      setThisTime(date.toISOString().slice(11, 19));
+    }, 1000);
+    return () => clearInterval(interval);
   }, []);
-
-  const checkAuth = async () => {
-    const isLogin = await getSession();
-    if (!isLogin) {
-      router.replace("/auth");
-    } else {
-      router.replace("/dashboard");
-    }
-  };
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

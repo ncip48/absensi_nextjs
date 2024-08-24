@@ -1,26 +1,40 @@
-import { getSession } from "@/app/lib";
+"use client";
+
 import axios from "axios";
 import { baseUrl } from "../constants";
+import { loginServices } from "./login";
 import toast from "react-hot-toast";
 
 export async function presentByNIS(nis: string) {
   try {
-    const storage = await getSession();
-    const token = storage.user.token;
-    const response = await axios.get(`${baseUrl}/attendances/v1/show`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+    const response = axios.post(
+      `${baseUrl}/attendances/v1/login/nis/${nis}`,
+      {},
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${await loginServices({
+            username: "kocak",
+            password: "password",
+          })}`,
+        },
+      }
+    );
+    toast.promise(response, {
+      loading: "Loading ...",
+      success: (data) => {
+        if (data.data.status !== 200) {
+          //here you can that this will throw the error from the returned data. Usually it's treated as normal thing.
+          throw new Error(`Statues code ${data.status}`);
+        }
+        return "Absen berhasil";
+      },
+      error: (e) => {
+        return `Uh oh, there was an error! ${e.message}`;
       },
     });
-    const result = response.data;
-    if (result.status !== 200) {
-      toast.error(result.message);
-      return [];
-    } else {
-      return result.data;
-    }
   } catch (error: any) {
+    console.log(error);
     toast.error(error.message);
   }
 }
