@@ -58,7 +58,7 @@ function Index() {
               id="dateStart"
               value={dateStart}
               onChange={(e) => setDateStart(e.target.value)}
-              className="px-3 py-2.5 ml-6 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:bg-dark-900 dark:text-gray-300"
+              className="px-3 py-2.5 ml-5 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:bg-dark-900 dark:text-gray-300"
             />
           </div>
           <div className="flex items-center">

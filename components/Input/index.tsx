@@ -6,6 +6,8 @@ interface InputProps {
   name: string;
   type?: string;
   placeholder?: string;
+  readonly?: boolean;
+  leftIcon?: React.ReactNode;
 }
 
 function Input({
@@ -14,6 +16,9 @@ function Input({
   name,
   type = "text",
   placeholder,
+  readonly,
+  leftIcon,
+  ...otherProps
 }: InputProps) {
   return (
     <div>
@@ -23,14 +28,21 @@ function Input({
       >
         {label}
       </label>
-      <input
-        type={type}
-        name={name}
-        id={name}
-        autoComplete="off"
-        className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        placeholder={placeholder}
-      />
+      <div className="flex items-center bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full dark:bg-dark-700 dark:border-dark-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        {leftIcon && <div className="mr-2.5 ml-2.5">{leftIcon}</div>}
+        <input
+          {...otherProps}
+          readOnly={readonly}
+          type={type}
+          name={name}
+          id={name}
+          autoComplete="off"
+          className={`focus:outline-none bg-gray-50 text-gray-900 block w-full ${
+            leftIcon ? "pl-0" : ""
+          } p-2.5 dark:bg-dark-700  dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-700 dark:focus:border-gray-700`}
+          placeholder={placeholder}
+        />
+      </div>
       <div className="mt-1 text-xs text-red-500">
         {errors.find((error: any) => error.for === name)?.message}
       </div>

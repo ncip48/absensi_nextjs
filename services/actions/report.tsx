@@ -33,8 +33,7 @@ export async function getAttendances() {
       console.log(error.response.status);
       console.log(error.response.headers);
       if (error.response.status === 401) {
-        // await logout();
-        toast.error(error.message);
+        await logout();
         return;
       }
     }
@@ -66,8 +65,7 @@ export async function getAttendanceToday() {
       console.log(error.response.status);
       console.log(error.response.headers);
       if (error.response.status === 401) {
-        // await logout();
-        toast.error(error.message);
+        await logout();
         return;
       }
     }
@@ -102,8 +100,7 @@ export async function getAttendanceRange(dateStart: string, dateEnd: string) {
       console.log(error.response.status);
       console.log(error.response.headers);
       if (error.response.status === 401) {
-        // await logout();
-        toast.error(error.message);
+        await logout();
         return;
       }
     }

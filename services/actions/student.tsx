@@ -33,8 +33,7 @@ export async function getStudents() {
       console.log(error.response.status);
       console.log(error.response.headers);
       if (error.response.status === 401) {
-        // await logout();
-        toast.error(error.message);
+        await logout();
         return;
       }
     }
