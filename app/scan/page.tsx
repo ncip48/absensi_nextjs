@@ -16,7 +16,7 @@ function Index() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errors, setErrors] = useState<any[]>([]);
 
-  const [thisTime, setThisTime] = useState<any>("");
+  const [thisTime, setThisTime] = useState<any>("00:00:00");
 
   useEffectAfterMount(() => {
     const interval = setInterval(() => {
