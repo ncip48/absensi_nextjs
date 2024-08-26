@@ -1,7 +1,6 @@
 "use client";
 
 import React, { FormEvent, useState } from "react";
-import { login } from "../lib";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { z } from "zod";
@@ -66,8 +65,6 @@ function Index() {
       }
 
       const res = await presentByNIS(response.data.nis);
-      if (res) {
-      }
 
       setErrors([]);
     } catch (error: any) {

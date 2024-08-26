@@ -14,7 +14,7 @@ export async function getStudents() {
   try {
     const storage = await getSession();
     const token = storage.user.token;
-    const response = await axios.get(`${baseUrl}/students/v1/show`, {
+    const response = await axios.get(`/api/students`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,

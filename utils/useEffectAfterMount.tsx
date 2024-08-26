@@ -9,10 +9,10 @@ const useEffectAfterMount = (
   const mounted = useRef(false);
 
   useEffect(() => {
-    if (mounted.current) {
-      return cb();
+    if (!mounted.current) {
+      mounted.current = true;
+      cb();
     }
-    mounted.current = true;
   }, dependencies);
 };
 

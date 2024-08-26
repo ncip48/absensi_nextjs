@@ -45,7 +45,7 @@ export async function presentByNISwithToken(nis: string) {
     const storage = await getSession();
     const token = storage.user.token;
     const response = axios.post(
-      `${baseUrl}/attendances/v1/login/nis/${nis}`,
+      `api/present?nis=${nis}`,
       {},
       {
         headers: {
@@ -61,10 +61,13 @@ export async function presentByNISwithToken(nis: string) {
           //here you can that this will throw the error from the returned data. Usually it's treated as normal thing.
           throw new Error(`Statues code ${data.status}`);
         }
+        if (data.data.data[0] == null) {
+          throw new Error("Siswa tidak ditemukan");
+        }
         return "Absen berhasil";
       },
       error: (e) => {
-        return `Uh oh, there was an error! ${e.message}`;
+        return `${e.message}`;
       },
     });
   } catch (error: any) {

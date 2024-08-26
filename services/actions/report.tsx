@@ -79,7 +79,7 @@ export async function getAttendanceRange(dateStart: string, dateEnd: string) {
     const storage = await getSession();
     const token = storage.user.token;
     const response = await axios.get(
-      `${baseUrl}/attendances/v1/range?start=${dateStart}&end=${dateEnd}`,
+      `/api/reports?start=${dateStart}&end=${dateEnd}`,
       {
         headers: {
           "Content-Type": "application/json",

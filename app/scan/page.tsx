@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
 import Input from "@/components/Input";
@@ -10,6 +10,7 @@ import { QrCodeIcon } from "@heroicons/react/24/solid";
 
 function Index() {
   const router = useRouter();
+  const ref = useRef<HTMLFormElement>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errors, setErrors] = useState<any[]>([]);
 
@@ -50,6 +51,7 @@ function Index() {
         throw err;
       }
 
+      formData.set("nis", "");
       const res = await presentByNISwithToken(response.data.nis);
 
       setErrors([]);
@@ -68,7 +70,14 @@ function Index() {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white text-center">
               Nama Siswa
             </h1>
-            <form className="space-y-4 md:space-y-6" onSubmit={onSubmit}>
+            <form
+              ref={ref}
+              className="space-y-4 md:space-y-6"
+              onSubmit={async (e) => {
+                await onSubmit(e);
+                ref.current?.reset();
+              }}
+            >
               <Input
                 label=""
                 name="nis"
