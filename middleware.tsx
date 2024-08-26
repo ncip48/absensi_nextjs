@@ -4,6 +4,8 @@ import { getSession } from "./app/lib";
 
 const protectedRoutes = ["/dashboard", "/siswa", "/report", "/scan"];
 const dissallowRouteGuru = ["/dashboard", "/siswa", "/report"];
+const dissallowAdmin = ["/dashboard", "/scan", "/report"];
+const dissallowKepsek = ["/scan"];
 
 export default async function middleware(req: NextRequest) {
   const getAuth = await getSession();
@@ -39,6 +41,16 @@ export default async function middleware(req: NextRequest) {
 
   if (role == 0 && dissallowRouteGuru.includes(req.nextUrl.pathname)) {
     const absoluteURL = new URL("/scan", req.nextUrl.origin);
+    return NextResponse.redirect(absoluteURL.toString());
+  }
+
+  if (role == 1 && dissallowKepsek.includes(req.nextUrl.pathname)) {
+    const absoluteURL = new URL("/dashboard", req.nextUrl.origin);
+    return NextResponse.redirect(absoluteURL.toString());
+  }
+
+  if (role == 2 && dissallowAdmin.includes(req.nextUrl.pathname)) {
+    const absoluteURL = new URL("/siswa", req.nextUrl.origin);
     return NextResponse.redirect(absoluteURL.toString());
   }
 }

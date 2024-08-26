@@ -4,7 +4,8 @@ import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { ArrowLeftStartOnRectangleIcon } from "@heroicons/react/24/solid";
-import { logout } from "@/app/lib";
+import { getSession, logout } from "@/app/lib";
+import useEffectAfterMount from "@/utils/useEffectAfterMount";
 
 interface SidenavProps {
   brandImg: string;
@@ -21,6 +22,7 @@ export function Sidenav({
   brandName = "Absensi App",
   routes = [],
 }) {
+  const [newRoutes, setNewRoutes] = useState<any>([]);
   const pathname = usePathname();
   const [openSidenav, setOpenSidenav] = useState(true);
   const sidenavType = "transparent";
@@ -28,6 +30,21 @@ export function Sidenav({
     dark: "bg-gradient-to-br from-gray-800 to-gray-900",
     white: "bg-white shadow-sm",
     transparent: "bg-transparent",
+  };
+
+  useEffectAfterMount(() => {
+    getNewRoutes();
+  }, []);
+
+  const getNewRoutes = async () => {
+    const storage = await getSession();
+    const role = storage?.user?.profile?.role;
+    console.log(role);
+    const oldRoutes = routes;
+    const newRoutes = oldRoutes.filter((route: any) =>
+      route.role.includes(role)
+    );
+    setNewRoutes(newRoutes);
   };
 
   return (
@@ -44,7 +61,7 @@ export function Sidenav({
         </Link>
       </div>
       <div className="m-4 mb-4 flex flex-col gap-1">
-        {routes.map(({ icon, name, path }: any) => (
+        {newRoutes.map(({ icon, name, path }: any) => (
           <Link href={path} key={name}>
             <button
               className={`align-middle select-none font-sans font-bold text-center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 rounded-lg ${

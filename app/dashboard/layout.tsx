@@ -24,16 +24,19 @@ export default function DashboardLayout({
       icon: <HomeIcon {...icon} />,
       name: "dashboard",
       path: "/dashboard",
+      role: [1],
     },
     {
       icon: <UserCircleIcon {...icon} />,
       name: "Siswa",
       path: "/siswa",
+      role: [1, 2],
     },
     {
       icon: <DocumentIcon {...icon} />,
       name: "report",
       path: "/report",
+      role: [1],
     },
   ];
   return (

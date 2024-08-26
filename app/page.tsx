@@ -19,25 +19,6 @@ function Index() {
 
   const [thisTime, setThisTime] = useState<any>("");
 
-  useEffectAfterMount(() => {
-    // const interval = setInterval(() => {
-    //   const date = new Date();
-    //   date.setHours(date.getHours() + 7);
-    //   setThisTime(date.toISOString().slice(11, 19));
-    // }, 1000);
-    // return () => clearInterval(interval);
-    checkAuth();
-  }, []);
-
-  const checkAuth = async () => {
-    const isLogin = await getSession();
-    if (!isLogin) {
-      router.replace("/auth");
-    } else {
-      router.replace("/dashboard");
-    }
-  };
-
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
