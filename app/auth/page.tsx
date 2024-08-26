@@ -8,6 +8,7 @@ import { z } from "zod";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
 import { loginServices } from "@/services/actions/login";
+import { getProfile } from "@/services/actions/profile";
 
 function Index() {
   const router = useRouter();
@@ -47,8 +48,13 @@ function Index() {
 
       const res = await loginServices(response.data);
       if (res) {
-        await login(res);
-        router.push("/dashboard");
+        const profile = await getDataProfile(res);
+        await login(res, profile);
+        if (profile?.role == 0) {
+          router.push("/scan");
+        } else {
+          router.push("/dashboard");
+        }
       }
 
       setErrors([]);
@@ -57,6 +63,11 @@ function Index() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const getDataProfile = async (token: string) => {
+    const res = await getProfile(token);
+    return res;
   };
 
   return (

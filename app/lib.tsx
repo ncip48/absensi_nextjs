@@ -23,10 +23,10 @@ export async function decrypt(input: string): Promise<any> {
   return payload;
 }
 
-export async function login(token: String) {
+export async function login(token: String, profile: any) {
   // Verify credentials && get the user
 
-  const user = { token };
+  const user = { token, profile };
 
   console.log(user);
 

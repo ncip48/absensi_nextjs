@@ -2,7 +2,7 @@
 
 import Table from "@/components/Table";
 import useEffectAfterMount from "@/utils/useEffectAfterMount";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import DashboardNavbar from "../_components/DashboardNavbar";
 import CardMain from "@/components/CardMain";
 import { getAttendanceRange } from "@/services/actions/report";
@@ -43,9 +43,9 @@ function Index() {
     setLoading(false);
   };
 
-  useEffect(() => {
+  useEffectAfterMount(() => {
     getData();
-  }, [dateStart, dateEnd]);
+  }, []);
 
   return (
     <>
