@@ -6,10 +6,12 @@ import useEffectAfterMount from "@/utils/useEffectAfterMount";
 import React, { useState } from "react";
 import DashboardNavbar from "../_components/DashboardNavbar";
 import CardMain from "@/components/CardMain";
+import { getSession } from "@/app/lib";
 
 function Index() {
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const getData = async () => {
     setLoading(true);
@@ -22,8 +24,19 @@ function Index() {
     setLoading(false);
   };
 
+  const checkAdmin = async () => {
+    const storage = await getSession();
+    const role = storage?.user?.profile?.role;
+    if (role != 2) {
+      setIsAdmin(false);
+    } else {
+      setIsAdmin(true);
+    }
+  };
+
   useEffectAfterMount(() => {
     getData();
+    checkAdmin();
   }, []);
 
   return (
@@ -35,6 +48,7 @@ function Index() {
           loading={loading}
           heads={["NIS", "NISN", "Nama", "Jenis Kelamin", "Status"]}
           keys={["nis", "nisn", "name", "sex_str"]}
+          noAction={!isAdmin}
         />
       </CardMain>
     </>

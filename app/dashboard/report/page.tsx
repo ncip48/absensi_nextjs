@@ -5,11 +5,18 @@ import useEffectAfterMount from "@/utils/useEffectAfterMount";
 import React, { useState } from "react";
 import DashboardNavbar from "../_components/DashboardNavbar";
 import CardMain from "@/components/CardMain";
-import { getAttendanceRange } from "@/services/actions/report";
+import {
+  getAttendanceRange,
+  printAttendanceRange,
+  printAttendanceRange2,
+} from "@/services/actions/report";
+import Button from "@/components/Button";
+import { getSession } from "@/app/lib";
 
 function Index() {
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadingPdf, setLoadingPdf] = useState(false);
   const [dateStart, setDateStart] = useState(
     new Date(new Date().setDate(new Date().getDate() - 7))
       .toISOString()
@@ -41,6 +48,41 @@ function Index() {
     // console.table(res);
     setStudents(res);
     setLoading(false);
+  };
+
+  const printData = async () => {
+    setLoadingPdf(true);
+    let res = await printAttendanceRange2(
+      dateStart + "T00:00:00",
+      dateEnd + "T00:00:00"
+    );
+    // res?.map((item: any) => {
+    //   item.timein_parse = new Date(item.timein).toLocaleTimeString([], {
+    //     hour: "2-digit",
+    //     minute: "2-digit",
+    //     second: "2-digit",
+    //     hour12: false,
+    //   });
+    //   item.tanggal = new Date(item.timein).toLocaleDateString("id-ID", {
+    //     day: "2-digit",
+    //     month: "2-digit",
+    //     year: "numeric",
+    //   });
+    // });
+    // console.log(res);
+    // const blob = await res.blob();
+    // const url = URL.createObjectURL(blob);
+    // window.open(url); // Open the PDF in a new tab
+
+    if (res.ok) {
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      window.open(url); // Open the PDF in a new tab
+    } else {
+      console.error("Failed to fetch PDF:", res.status);
+    }
+    // setStudents(res);
+    setLoadingPdf(false);
   };
 
   useEffectAfterMount(() => {
@@ -76,6 +118,8 @@ function Index() {
               className="px-3 py-2.5 ml-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:bg-dark-900 dark:text-gray-300"
             />
           </div>
+          <Button title="Lihat" onClick={getData} loading={loading} />
+          <Button title="Cetak PDF" onClick={printData} loading={loadingPdf} />
         </div>
         <Table
           items={students}

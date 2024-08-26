@@ -2,10 +2,16 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getSession } from "./app/lib";
 
-const protectedRoutes = ["/dashboard", "/siswa", "/report", "/scan"];
+const protectedRoutes = [
+  "/dashboard",
+  "/siswa",
+  "/report",
+  "/scan",
+  "/scan-out",
+];
 const dissallowRouteGuru = ["/dashboard", "/siswa", "/report"];
-const dissallowAdmin = ["/dashboard", "/scan", "/report"];
-const dissallowKepsek = ["/scan"];
+const dissallowAdmin = ["/dashboard", "/scan", "/report", "/scan-out"];
+const dissallowKepsek = ["/scan", "/scan-out"];
 
 export default async function middleware(req: NextRequest) {
   const getAuth = await getSession();
