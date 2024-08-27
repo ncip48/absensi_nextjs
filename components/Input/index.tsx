@@ -8,6 +8,7 @@ interface InputProps {
   placeholder?: string;
   readonly?: boolean;
   leftIcon?: React.ReactNode;
+  defaultValue?: any;
 }
 
 function Input({
@@ -18,6 +19,7 @@ function Input({
   placeholder,
   readonly,
   leftIcon,
+  defaultValue,
   ...otherProps
 }: InputProps) {
   return (
@@ -36,6 +38,7 @@ function Input({
           type={type}
           name={name}
           id={name}
+          defaultValue={defaultValue}
           autoComplete="off"
           className={`focus:outline-none bg-gray-50 text-gray-900 block w-full ${
             leftIcon ? "pl-0" : ""
