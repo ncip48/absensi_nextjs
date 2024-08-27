@@ -131,7 +131,8 @@ function Index() {
       <DashboardNavbar active="Siswa" />
       <CardMain
         title="Daftar Siswa"
-        onAdd={isAdmin ? () => setModal(true) : null}
+        onAdd={() => setModal(true)}
+        isAdmin={isAdmin}
       >
         <Table
           items={students}

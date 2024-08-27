@@ -5,10 +5,12 @@ function CardMain({
   title,
   children,
   onAdd,
+  isAdmin,
 }: {
   title: string;
   children: React.ReactNode;
-  onAdd?: (() => void) | null;
+  onAdd?: () => void;
+  isAdmin?: boolean;
 }) {
   return (
     <div className="mt-12 mb-8 flex flex-col gap-12 mr-4">
@@ -18,7 +20,9 @@ function CardMain({
           <h6 className="block antialiased tracking-normal font-sans text-base font-bold leading-relaxed text-white">
             {title}
           </h6>
-          {onAdd && <Button onClick={onAdd} title="Tambah" loading={false} />}
+          {onAdd && isAdmin && (
+            <Button onClick={onAdd} title="Tambah" loading={false} />
+          )}
         </div>
         {/* </div> */}
         <div className="p-6 overflow-x-scroll px-0 pt-0 pb-2">{children}</div>
