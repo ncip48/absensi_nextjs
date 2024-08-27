@@ -89,7 +89,7 @@ function Index() {
       }
     );
 
-    if (res.ok) {
+    if (response.ok) {
       const blob = await response.blob();
       const url = URL.createObjectURL(blob);
       window.open(url); // Open the PDF in a new tab

@@ -40,7 +40,7 @@ function Modal({
               <Button
                 title="Simpan"
                 formSubmit
-                bg="primary"
+                bg="blue"
                 loading={loadingSave}
               />
             </div>
