@@ -23,16 +23,24 @@ function Index() {
       .split("T")[0]
   );
   const [dateEnd, setDateEnd] = useState(
-    new Date(new Date().setDate(new Date().getDate() + 1))
+    new Date(new Date().setDate(new Date().getDate()))
       .toISOString()
       .split("T")[0]
   );
 
   const getData = async () => {
     setLoading(true);
+
+    const dStart = dateStart;
+    const dEnd = new Date(
+      new Date(dateEnd).setDate(new Date(dateEnd).getDate() + 1)
+    )
+      .toISOString()
+      .split("T")[0];
+
     let res = await getAttendanceRange(
-      dateStart + "T00:00:00",
-      dateEnd + "T00:00:00"
+      dStart + "T00:00:00",
+      dEnd + "T00:00:00"
     );
     res?.map((item: any) => {
       item.timein_parse = new Date(item.timein).toLocaleTimeString([], {
