@@ -27,7 +27,21 @@ export async function GET() {
           },
           { status: error.response.status }
         );
+      } else {
+        return NextResponse.json(
+          {
+            message: error.message,
+          },
+          { status: error.response.status }
+        );
       }
+    } else {
+      return NextResponse.json(
+        {
+          message: error.message,
+        },
+        { status: 500 }
+      );
     }
   }
 }

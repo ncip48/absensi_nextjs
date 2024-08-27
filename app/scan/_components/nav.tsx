@@ -8,7 +8,7 @@ import { logout } from "../../lib";
 function Nav() {
   return (
     <nav className="w-full bg-transparent text-white shadow-none transition-all px-5 py-1 bg-gray-50 dark:bg-dark-800">
-      <div className="flex flex-col-reverse justify-between gap-6 md:flex-row md:items-center">
+      <div className="flex justify-between gap-6 items-center">
         <div className="capitalize">
           <nav aria-label="breadcrumb" className="w-max">
             <ul className="flex flex-wrap items-center w-full rounded-md bg-transparent p-0 transition-all gap-5">

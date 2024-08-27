@@ -52,10 +52,10 @@ function Index() {
 
   const printData = async () => {
     setLoadingPdf(true);
-    let res = await printAttendanceRange2(
-      dateStart + "T00:00:00",
-      dateEnd + "T00:00:00"
-    );
+    // let res = await printAttendanceRange2(
+    //   dateStart + "T00:00:00",
+    //   dateEnd + "T00:00:00"
+    // );
     // res?.map((item: any) => {
     //   item.timein_parse = new Date(item.timein).toLocaleTimeString([], {
     //     hour: "2-digit",
@@ -73,13 +73,28 @@ function Index() {
     // const blob = await res.blob();
     // const url = URL.createObjectURL(blob);
     // window.open(url); // Open the PDF in a new tab
+    const token = await getSession();
+    const t = token.user.token;
+    const response = await fetch(
+      `/api/pdf?start=${dateStart}T00:00:00&end=${dateEnd}T00:00:00`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${t}`,
+        },
+        body: JSON.stringify({
+          /* your POST data */
+        }),
+      }
+    );
 
     if (res.ok) {
-      const blob = await res.blob();
+      const blob = await response.blob();
       const url = URL.createObjectURL(blob);
       window.open(url); // Open the PDF in a new tab
     } else {
-      console.error("Failed to fetch PDF:", res.status);
+      console.error("Failed to fetch PDF:", response.status);
     }
     // setStudents(res);
     setLoadingPdf(false);

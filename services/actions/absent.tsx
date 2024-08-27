@@ -28,7 +28,7 @@ export async function presentByNIS(nis: string) {
           //here you can that this will throw the error from the returned data. Usually it's treated as normal thing.
           throw new Error(`Statues code ${data.status}`);
         }
-        return "Absen masuk berhasil";
+        return `${data?.data?.data[0]?.student?.name} berhasil absen masuk`;
       },
       error: (e) => {
         return `Uh oh, there was an error! ${e.message}`;
@@ -64,7 +64,7 @@ export async function presentOutByNISwithToken(nis: string) {
         if (data.data.data[0] == null) {
           throw new Error("Siswa tidak ditemukan");
         }
-        return "Absen keluar berhasil";
+        return `${data?.data?.data[0]?.student?.name} berhasil absen keluar`;
       },
       error: (e) => {
         return `${e.message}`;
@@ -100,7 +100,7 @@ export async function presentByNISwithToken(nis: string) {
         if (data.data.data[0] == null) {
           throw new Error("Siswa tidak ditemukan");
         }
-        return "Absen berhasil";
+        return `${data?.data?.data[0]?.student?.name} berhasil absen masuk`;
       },
       error: (e) => {
         return `${e.message}`;

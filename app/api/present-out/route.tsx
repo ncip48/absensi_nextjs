@@ -40,6 +40,13 @@ export async function POST(req: NextRequest) {
           { status: error.response.status }
         );
       }
+    } else {
+      return NextResponse.json(
+        {
+          message: error.message,
+        },
+        { status: 500 }
+      );
     }
   }
 }

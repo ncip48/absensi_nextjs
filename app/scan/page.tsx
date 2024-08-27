@@ -1,14 +1,17 @@
 "use client";
 
-import React, { FormEvent, useRef, useState } from "react";
+import React, { FormEvent, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
 import Input from "@/components/Input";
 import { presentByNISwithToken } from "@/services/actions/absent";
 import useEffectAfterMount from "@/utils/useEffectAfterMount";
 import { QrCodeIcon } from "@heroicons/react/24/solid";
+import { Scanner } from "@yudiel/react-qr-scanner";
+import toast from "react-hot-toast";
 
 function Index() {
+  //OLD SCAN
   const router = useRouter();
   const ref = useRef<HTMLFormElement>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -62,28 +65,47 @@ function Index() {
     }
   };
 
+  const onScan = async (nis: string) => {
+    setIsLoading(true);
+
+    try {
+      const res = await presentByNISwithToken(nis);
+
+      setErrors([]);
+    } catch (error: any) {
+      //   console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <section className="bg-gray-50 dark:bg-dark-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen lg:py-0">
-        <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-dark-800 dark:border-dark-700">
+        <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 xs:max-w-lg xl:p-0 dark:bg-dark-800 dark:border-dark-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white text-center">
-              Nama Siswa
+              Absen Masuk
             </h1>
             <form
-              ref={ref}
+              // ref={ref}
               className="space-y-4 md:space-y-6"
-              onSubmit={async (e) => {
-                await onSubmit(e);
-                ref.current?.reset();
-              }}
+              // onSubmit={async (e) => {
+              //   await onSubmit(e);
+              //   ref.current?.reset();
+              // }}
             >
-              <Input
+              {/* <Input
                 label=""
                 name="nis"
                 errors={errors}
                 placeholder="123456"
                 leftIcon={<QrCodeIcon className="w-5 h-5 text-inherit" />}
+              /> */}
+              <Scanner
+                onScan={(result) => onScan(result[0]?.rawValue)}
+                allowMultiple
+                scanDelay={2000}
               />
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white text-center">
                 {thisTime}
