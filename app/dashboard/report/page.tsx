@@ -47,6 +47,10 @@ function Index() {
         year: "numeric",
       });
     });
+    res.sort(
+      (a: any, b: any) =>
+        new Date(b.timein).getTime() - new Date(a.timein).getTime()
+    );
     // console.table(res);
     setStudents(res);
     setLoading(false);
