@@ -123,6 +123,7 @@ function Index() {
       grade: "",
       sex: "",
     });
+    setErrors([]);
   };
 
   return (

@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
     const token = storage.user.token;
     const nis = req.nextUrl.searchParams.get("nis");
     const response = await axios.post(
-      `${baseUrl}/attendances/v1/login/nis/${nis}`,
+      `${baseUrl}/attendances/v1/logout/nis/${nis}`,
       {},
       {
         headers: {
