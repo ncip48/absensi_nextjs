@@ -199,6 +199,7 @@ function Index() {
             </label>
             <select
               name="sex"
+              defaultValue={studentData?.sex}
               className="p-2.5 block w-full mt-1 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-dark-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-700 dark:focus:border-gray-700"
             >
               <option value="" selected disabled>
