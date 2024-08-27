@@ -10,13 +10,15 @@ import {
 } from "@/services/actions/absent";
 import useEffectAfterMount from "@/utils/useEffectAfterMount";
 import { QrCodeIcon } from "@heroicons/react/24/solid";
-import { Scanner } from "@yudiel/react-qr-scanner";
+import { Scanner, useDevices } from "@yudiel/react-qr-scanner";
 
 function Index() {
   const router = useRouter();
   const ref = useRef<HTMLFormElement>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errors, setErrors] = useState<any[]>([]);
+  const devices = useDevices();
+  const [deviceId, setDeviceId] = useState<string | undefined>(undefined);
 
   const [thisTime, setThisTime] = useState<any>("00:00:00");
 
@@ -88,10 +90,22 @@ function Index() {
               Absen Keluar
             </h1>
             <form className="space-y-4 md:space-y-6">
+              <select
+                onChange={(e) => setDeviceId(e.target.value)}
+                className="p-2.5 block w-full mt-1 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-dark-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-700 dark:focus:border-gray-700"
+              >
+                <option value={undefined}>Select a device</option>
+                {devices.map((device, index) => (
+                  <option key={index} value={device.deviceId}>
+                    {device.label}
+                  </option>
+                ))}
+              </select>
               <Scanner
                 onScan={(result) => onScan(result[0]?.rawValue)}
                 allowMultiple
                 scanDelay={2000}
+                constraints={{ deviceId: deviceId }}
               />
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white text-center">
                 {thisTime}
