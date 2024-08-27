@@ -8,7 +8,7 @@ function CardMain({
 }: {
   title: string;
   children: React.ReactNode;
-  onAdd?: () => void;
+  onAdd?: (() => void) | null;
 }) {
   return (
     <div className="mt-12 mb-8 flex flex-col gap-12 mr-4">

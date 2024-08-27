@@ -129,7 +129,10 @@ function Index() {
   return (
     <>
       <DashboardNavbar active="Siswa" />
-      <CardMain title="Daftar Siswa" onAdd={() => setModal(true)}>
+      <CardMain
+        title="Daftar Siswa"
+        onAdd={isAdmin ? () => setModal(true) : null}
+      >
         <Table
           items={students}
           loading={loading}
