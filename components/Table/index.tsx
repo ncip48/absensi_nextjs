@@ -7,6 +7,7 @@ interface TableProps {
   keys: string[];
   noAction?: boolean;
   noStatus?: boolean;
+  onEdit?: any;
 }
 
 function Table({
@@ -16,7 +17,11 @@ function Table({
   keys = [],
   noAction = false,
   noStatus = false,
+  onEdit,
 }: TableProps) {
+  const edit = (item: any) => {
+    onEdit(item);
+  };
   return (
     <table className="w-full min-w-[640px] table-auto">
       <thead>
@@ -123,8 +128,8 @@ function Table({
                     }`}
                   >
                     <a
-                      href="#"
-                      className="block antialiased font-sans text-xs font-semibold text-blue-gray-600"
+                      onClick={() => edit(item)}
+                      className="block antialiased font-sans text-xs font-semibold text-blue-gray-600 cursor-pointer"
                     >
                       Edit
                     </a>

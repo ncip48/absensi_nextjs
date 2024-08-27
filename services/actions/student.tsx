@@ -42,6 +42,95 @@ export async function getStudents() {
   }
 }
 
+export async function createStudent(data: any) {
+  try {
+    const storage = await getSession();
+    const token = storage.user.token;
+    const { nis, nisn, name, grade, sex } = data;
+    const response = await axios.post(
+      `/api/students`,
+      {
+        nis,
+        nisn,
+        name,
+        grade,
+        sex,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const result = response.data;
+    if (result.status !== 200) {
+      toast.error(result.message);
+      return null;
+    } else {
+      toast.success("Berhasil menambahkan siswa");
+      return result.data[0];
+    }
+  } catch (error: any) {
+    if (error.response) {
+      console.log(error.response.data);
+      console.log(error.response.status);
+      console.log(error.response.headers);
+      if (error.response.status === 401) {
+        await logout();
+        return;
+      }
+    }
+    toast.error(error.message);
+    return;
+  }
+}
+
+export async function updateStudent(id: any, data: any) {
+  try {
+    const storage = await getSession();
+    const token = storage.user.token;
+    const { nis, nisn, name, grade, sex } = data;
+    const response = await axios.put(
+      `/api/students`,
+      {
+        id,
+        nis,
+        nisn,
+        name,
+        grade,
+        sex,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const result = response.data;
+    if (result.status !== 200) {
+      toast.error(result.message);
+      return null;
+    } else {
+      toast.success("Berhasil mengedit siswa");
+      return result.data[0];
+    }
+  } catch (error: any) {
+    if (error.response) {
+      console.log(error.response.data);
+      console.log(error.response.status);
+      console.log(error.response.headers);
+      if (error.response.status === 401) {
+        await logout();
+        return;
+      }
+    }
+    toast.error(error.message);
+    return;
+  }
+}
+
 export async function getStudentByNIS(nis: string) {
   try {
     const storage = await getSession();

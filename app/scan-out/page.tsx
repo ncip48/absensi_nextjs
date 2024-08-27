@@ -87,21 +87,7 @@ function Index() {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white text-center">
               Absen Keluar
             </h1>
-            <form
-              // ref={ref}
-              className="space-y-4 md:space-y-6"
-              // onSubmit={async (e) => {
-              //   await onSubmit(e);
-              //   ref.current?.reset();
-              // }}
-            >
-              {/* <Input
-                label=""
-                name="nis"
-                errors={errors}
-                placeholder="123456"
-                leftIcon={<QrCodeIcon className="w-5 h-5 text-inherit" />}
-              /> */}
+            <form className="space-y-4 md:space-y-6">
               <Scanner
                 onScan={(result) => onScan(result[0]?.rawValue)}
                 allowMultiple
@@ -110,7 +96,6 @@ function Index() {
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white text-center">
                 {thisTime}
               </h1>
-              {/* <Button loading={isLoading} title="Absen" formSubmit block /> */}
             </form>
           </div>
         </div>

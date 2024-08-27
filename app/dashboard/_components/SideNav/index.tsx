@@ -39,7 +39,6 @@ export function Sidenav({
   const getNewRoutes = async () => {
     const storage = await getSession();
     const role = storage?.user?.profile?.role;
-    console.log(role);
     const oldRoutes = routes;
     const newRoutes = oldRoutes.filter((route: any) =>
       route.role.includes(role)

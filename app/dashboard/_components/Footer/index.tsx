@@ -7,7 +7,7 @@ interface FooterProps {
 }
 
 export function Footer({
-  brandName = "Absensi",
+  brandName = "Dotech Digital",
   brandLink = "https://google.com",
 }: FooterProps) {
   const year = new Date().getFullYear();

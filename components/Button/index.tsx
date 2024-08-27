@@ -1,27 +1,31 @@
 import React from "react";
 
 interface ButtonProps {
-  loading: boolean;
+  loading?: boolean;
   title: string;
   block?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   formSubmit?: boolean;
+  bg?: string;
 }
 
 function Button({
-  loading,
+  loading = false,
   title,
   block = false,
   onClick,
   formSubmit = false,
+  bg = "",
 }: ButtonProps) {
   return (
     <button
       onClick={onClick}
       type={formSubmit ? "submit" : "button"}
-      className={`text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-dark-900 dark:hover:bg-dark-700 dark:focus:ring-dark-800 ${
-        block ? "w-full" : ""
-      }`}
+      className={`text-white bg-${bg}-600 hover:bg-${bg}-700 focus:ring-4 focus:outline-none focus:ring-${bg}-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ${
+        bg
+          ? `dark:bg-${bg}-800`
+          : "dark:bg-dark-900 dark:hover:bg-dark-700 dark:focus:ring-dark-800"
+      } ${block ? "w-full" : ""}`}
     >
       {loading ? (
         <div role="status">
