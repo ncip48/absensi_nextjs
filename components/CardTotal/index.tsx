@@ -31,12 +31,12 @@ function CardTotal({ value, icon, label, subtitle }: CardTotalInterface) {
         <p className="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">
           {label}
         </p>
-        <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900 dark:text-white">
+        <h4 className="block antialiased tracking-normal font-sans text-2xl font-bold leading-snug text-blue-gray-900 dark:text-white">
           {value}
         </h4>
       </div>
       <div className="border-t border-blue-gray-50 p-4 dark:border-gray-900">
-        <p className="block antialiased font-sans text-base leading-relaxed font-normal text-blue-gray-600">
+        <p className="block antialiased font-sans text-base leading-relaxed font-medium text-blue-gray-600">
           {subtitle}
         </p>
       </div>
