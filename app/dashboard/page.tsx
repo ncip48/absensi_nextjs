@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 function Index() {
   return (
     <>
-      <DashboardNavbar active="Home" />
+      {/* <DashboardNavbar active="Home" /> */}
       <div className="mt-12">
         <div className="mb-12 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-4">
           <CardTotal

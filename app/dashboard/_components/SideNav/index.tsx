@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { ArrowLeftStartOnRectangleIcon } from "@heroicons/react/24/solid";
 import { getSession, logout } from "@/app/lib";
@@ -15,16 +15,18 @@ interface SidenavProps {
     name: string;
     path: string;
   }>;
+  stateSidebar: boolean;
 }
 
 export function Sidenav({
   brandImg = "/img/logo-ct.png",
   brandName = "Absensi App",
   routes = [],
+  stateSidebar = false,
 }) {
   const [newRoutes, setNewRoutes] = useState<any>([]);
   const pathname = usePathname();
-  const [openSidenav, setOpenSidenav] = useState(true);
+  const openSidenav = stateSidebar;
   const sidenavType = "transparent";
   const sidenavTypes = {
     dark: "bg-gradient-to-br from-gray-800 to-gray-900",
@@ -50,7 +52,7 @@ export function Sidenav({
     <aside
       className={`${sidenavTypes[sidenavType]} ${
         openSidenav ? "translate-x-0" : "-translate-x-80"
-      } fixed inset-0 z-50  h-[calc(100vh)] w-72  transition-transform duration-300 xl:translate-x-0 borders borders-blue-gray-100 dark:bg-dark-900`}
+      } fixed inset-0 z-50  h-[calc(100vh)] w-72  transition-transform duration-300  borders borders-blue-gray-100 dark:bg-dark-900`}
     >
       <div className={`relative`}>
         <Link href="/dashboard" className="py-6 px-8 text-center">

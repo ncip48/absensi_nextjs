@@ -128,7 +128,7 @@ function Index() {
 
   return (
     <>
-      <DashboardNavbar active="Siswa" />
+      {/* <DashboardNavbar active="Siswa" /> */}
       <CardMain
         title="Daftar Siswa"
         onAdd={() => setModal(true)}

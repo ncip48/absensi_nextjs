@@ -120,7 +120,7 @@ function Index() {
 
   return (
     <>
-      <DashboardNavbar active="Report" />
+      {/* <DashboardNavbar active="Report" /> */}
       <CardMain title="Laporan Absensi">
         <div className="flex flex-row gap-2 mb-6">
           <div className="flex items-center">
