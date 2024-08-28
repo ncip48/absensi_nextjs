@@ -5,8 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
   try {
-    const storage = await getSession();
-    const token = storage.user.token;
+    const token = req?.headers?.get("Authorization")?.split(" ")[1];
     const dateStart = req.nextUrl.searchParams.get("start");
     const dateEnd = req.nextUrl.searchParams.get("end");
     const response = await axios.get(

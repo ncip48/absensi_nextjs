@@ -11,6 +11,7 @@ import {
 import useEffectAfterMount from "@/utils/useEffectAfterMount";
 import { QrCodeIcon } from "@heroicons/react/24/solid";
 import { Scanner } from "@yudiel/react-qr-scanner";
+import toast from "react-hot-toast";
 
 function Index() {
   const router = useRouter();
@@ -68,7 +69,7 @@ function Index() {
 
   const onScan = async (nis: string) => {
     setIsLoading(true);
-
+    const toastId = toast.loading("Loading...");
     try {
       const res = await presentOutByNISwithToken(nis);
       setErrors([]);
@@ -76,6 +77,7 @@ function Index() {
       //   console.error(error);
     } finally {
       setIsLoading(false);
+      toast.dismiss(toastId);
     }
   };
 

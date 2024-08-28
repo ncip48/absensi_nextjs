@@ -67,6 +67,7 @@ function Index() {
 
   const onScan = async (nis: string) => {
     setIsLoading(true);
+    const toastId = toast.loading("Loading...");
 
     try {
       const res = await presentByNISwithToken(nis);
@@ -76,6 +77,7 @@ function Index() {
       //   console.error(error);
     } finally {
       setIsLoading(false);
+      toast.dismiss(toastId);
     }
   };
 

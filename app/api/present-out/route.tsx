@@ -5,8 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    const storage = await getSession();
-    const token = storage.user.token;
+    const token = req?.headers?.get("Authorization")?.split(" ")[1];
     const nis = req.nextUrl.searchParams.get("nis");
     const response = await axios.post(
       `${baseUrl}/attendances/v1/logout/nis/${nis}`,

@@ -3,10 +3,9 @@ import { baseUrl } from "@/services/constants";
 import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
-    const storage = await getSession();
-    const token = storage.user.token;
+    const token = request?.headers?.get("Authorization")?.split(" ")[1];
     const response = await axios.get(`${baseUrl}/students/v1/show`, {
       headers: {
         "Content-Type": "application/json",
