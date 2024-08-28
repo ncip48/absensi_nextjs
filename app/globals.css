@@ -54,3 +54,9 @@ body {
   --tw-shadow-color: rgb(96 125 139 / 0.1);
   --tw-shadow: var(--tw-shadow-colored);
 }
+
+form video {
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg); /* Safari and Chrome */
+  -moz-transform: rotateY(180deg); /* Firefox */
+}

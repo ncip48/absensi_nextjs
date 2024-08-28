@@ -10,15 +10,13 @@ import {
 } from "@/services/actions/absent";
 import useEffectAfterMount from "@/utils/useEffectAfterMount";
 import { QrCodeIcon } from "@heroicons/react/24/solid";
-import { Scanner, useDevices } from "@yudiel/react-qr-scanner";
+import { Scanner } from "@yudiel/react-qr-scanner";
 
 function Index() {
   const router = useRouter();
   const ref = useRef<HTMLFormElement>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errors, setErrors] = useState<any[]>([]);
-  const devices = useDevices();
-  const [deviceId, setDeviceId] = useState<string | undefined>(undefined);
 
   const [thisTime, setThisTime] = useState<any>("00:00:00");
 
@@ -84,28 +82,19 @@ function Index() {
   return (
     <section className="bg-gray-50 dark:bg-dark-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen lg:py-0">
-        <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 xs:max-w-md xl:p-0 dark:bg-dark-800 dark:border-dark-700">
+        <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 lg:max-w-3xl xl:p-0 dark:bg-dark-800 dark:border-dark-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white text-center">
               Absen Keluar
             </h1>
             <form className="space-y-4 md:space-y-6">
-              <select
-                onChange={(e) => setDeviceId(e.target.value)}
-                className="p-2.5 block w-full mt-1 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-dark-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-700 dark:focus:border-gray-700"
-              >
-                <option value={undefined}>Select a device</option>
-                {devices.map((device, index) => (
-                  <option key={index} value={device.deviceId}>
-                    {device.label}
-                  </option>
-                ))}
-              </select>
               <Scanner
                 onScan={(result) => onScan(result[0]?.rawValue)}
                 allowMultiple
                 scanDelay={2000}
-                constraints={{ deviceId: deviceId }}
+                constraints={{
+                  facingMode: "user",
+                }}
               />
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white text-center">
                 {thisTime}
