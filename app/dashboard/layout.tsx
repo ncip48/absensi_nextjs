@@ -72,9 +72,16 @@ export default function DashboardLayout({
     setOpenSidenav(isDesktop ? true : false);
   }, [isDesktop]);
 
+  useEffect(() => {
+    if (!isDesktop) {
+      setOpenSidenav(false);
+    }
+  }, [pathname, isDesktop]);
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-dark-900">
       <Sidenav
+        setOpenNav={() => setOpenSidenav(!openSidenav)}
         routes={routes}
         stateSidebar={openSidenav}
         brandImg={

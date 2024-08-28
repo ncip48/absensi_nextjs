@@ -3,7 +3,10 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { ArrowLeftStartOnRectangleIcon } from "@heroicons/react/24/solid";
+import {
+  ArrowLeftStartOnRectangleIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/solid";
 import { getSession, logout } from "@/app/lib";
 import useEffectAfterMount from "@/utils/useEffectAfterMount";
 
@@ -16,6 +19,7 @@ interface SidenavProps {
     path: string;
   }>;
   stateSidebar: boolean;
+  setOpenNav?: () => void;
 }
 
 export function Sidenav({
@@ -23,6 +27,7 @@ export function Sidenav({
   brandName = "Absensi App",
   routes = [],
   stateSidebar = false,
+  setOpenNav,
 }) {
   const [newRoutes, setNewRoutes] = useState<any>([]);
   const pathname = usePathname();
@@ -52,14 +57,20 @@ export function Sidenav({
     <aside
       className={`${sidenavTypes[sidenavType]} ${
         openSidenav ? "translate-x-0" : "-translate-x-80"
-      } fixed inset-0 z-50  h-[calc(100vh)] w-72  transition-transform duration-300  borders borders-blue-gray-100 dark:bg-dark-900`}
+      } fixed inset-0 z-50  h-[calc(100vh)] w-72  transition-transform duration-300 shadow-2xl dark:bg-dark-900`}
     >
       <div className={`relative`}>
-        <Link href="/dashboard" className="py-6 px-8 text-center">
-          <h6 className="block antialiased tracking-normal font-sans text-base font-bold leading-relaxed text-white">
-            {brandName}
-          </h6>
-        </Link>
+        <div className="py-6 px-8 flex items-center justify-between">
+          <Link href="/dashboard" className="text-center w-full">
+            <h6 className="block antialiased tracking-normal font-sans text-base font-bold leading-relaxed text-white">
+              {brandName}
+            </h6>
+          </Link>
+          <XMarkIcon
+            className="w-5 h-5 text-inherit lg:hidden cursor-pointer"
+            onClick={setOpenNav}
+          />
+        </div>
       </div>
       <div className="m-4 mb-4 flex flex-col gap-1">
         {newRoutes.map(({ icon, name, path }: any) => (
