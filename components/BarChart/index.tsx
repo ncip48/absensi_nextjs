@@ -4,18 +4,17 @@ import ApexCharts from "apexcharts";
 import React from "react";
 import ReactApexChart from "react-apexcharts";
 
-const BarChart = ({ title }: { title: string }) => {
+const BarChart = ({
+  title,
+  categories,
+  data,
+}: {
+  title: string;
+  categories: object;
+  data: object;
+}) => {
   const [state, setState] = React.useState({
-    series: [
-      {
-        name: "Jumlah Masuk",
-        data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
-      },
-      {
-        name: "Telat",
-        data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
-      },
-    ],
+    series: data,
     options: {
       grid: {
         borderColor: "#e2e6e9",
@@ -49,17 +48,7 @@ const BarChart = ({ title }: { title: string }) => {
         colors: ["transparent"],
       },
       xaxis: {
-        categories: [
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct",
-        ],
+        categories: categories,
         labels: {
           show: true,
           style: {
@@ -70,7 +59,7 @@ const BarChart = ({ title }: { title: string }) => {
       },
       yaxis: {
         title: {
-          text: "Jumlah",
+          // text: "Jumlah",
         },
         labels: {
           show: true,

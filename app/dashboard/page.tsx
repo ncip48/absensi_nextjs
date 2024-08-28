@@ -37,10 +37,33 @@ function Index() {
           />
         </div>
         <div className="mb-12 grid gap-y-10 gap-x-6 md:grid-cols-1 xl:grid-cols-2">
-          <BarChart title="Grafik Absen Tahunan" />
+          <BarChart
+            title="Grafik Absen Tahunan"
+            categories={[
+              "Feb",
+              "Mar",
+              "Apr",
+              "May",
+              "Jun",
+              "Jul",
+              "Aug",
+              "Sep",
+              "Oct",
+            ]}
+            data={[
+              {
+                name: "Jumlah Masuk",
+                data: [28, 20, 25, 23, 22, 24, 21, 23, 22],
+              },
+              {
+                name: "Telat",
+                data: [0, 8, 3, 5, 6, 4, 7, 6, 7],
+              },
+            ]}
+          />
           <PieChart
             title="Jumlah Absen Hari Ini"
-            data={[10, 20]}
+            data={[20, 8]}
             label={["Jumlah Masuk", "Terlambat"]}
           />
         </div>
