@@ -50,7 +50,7 @@ export function Sidenav({
     <aside
       className={`${sidenavTypes[sidenavType]} ${
         openSidenav ? "translate-x-0" : "-translate-x-80"
-      } fixed inset-0 z-50 my-4 ml-4 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0 borders borders-blue-gray-100`}
+      } fixed inset-0 z-50  h-[calc(100vh)] w-72  transition-transform duration-300 xl:translate-x-0 borders borders-blue-gray-100 dark:bg-dark-900`}
     >
       <div className={`relative`}>
         <Link href="/dashboard" className="py-6 px-8 text-center">

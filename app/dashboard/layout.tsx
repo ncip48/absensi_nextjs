@@ -47,7 +47,7 @@ export default function DashboardLayout({
           sidenavType === "dark" ? "/img/logo-ct.png" : "/img/logo-ct-dark.png"
         }
       />
-      <div className="p-4 xl:ml-80">
+      <div className="p-4 xl:ml-80 xl:pl-0">
         {/* <DashboardNavbar /> */}
         {/* <Configurator /> */}
         {/* <IconButton
