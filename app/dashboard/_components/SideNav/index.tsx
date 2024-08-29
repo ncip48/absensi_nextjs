@@ -11,8 +11,8 @@ import { getSession, logout } from "@/app/lib";
 import useEffectAfterMount from "@/utils/useEffectAfterMount";
 
 interface SidenavProps {
-  brandImg: string;
-  brandName: string;
+  brandImg?: string;
+  brandName?: string;
   routes: Array<{
     icon: string;
     name: string;
@@ -28,7 +28,7 @@ export function Sidenav({
   routes = [],
   stateSidebar = false,
   setOpenNav,
-}) {
+}: SidenavProps) {
   const [newRoutes, setNewRoutes] = useState<any>([]);
   const pathname = usePathname();
   const openSidenav = stateSidebar;

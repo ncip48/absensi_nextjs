@@ -1,8 +1,12 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import ApexCharts from "apexcharts";
 import React from "react";
-import ReactApexChart from "react-apexcharts";
+// import ReactApexChart from "react-apexcharts";
+const ReactApexChart = dynamic(() => import("react-apexcharts"), {
+  ssr: false,
+});
 
 const PieChart = ({
   title,
@@ -13,11 +17,11 @@ const PieChart = ({
   data: object;
   label: object;
 }) => {
-  const [state, setState] = React.useState({
+  const [state, setState] = React.useState<any>({
     series: data,
     options: {
       labels: label,
-      colors: ["#28a745", "#dc3545"],
+      colors: ["#7695FF", "#667BC6"],
       theme: {
         mode: "dark",
       },
@@ -59,14 +63,16 @@ const PieChart = ({
         </p>
       </div>
       <div className="p-4" id="chart">
-        <ReactApexChart
-          options={{
-            ...state.options,
-          }}
-          series={state.series}
-          type="pie"
-          height={350}
-        />
+        {typeof window !== "undefined" && (
+          <ReactApexChart
+            options={{
+              ...state.options,
+            }}
+            series={state.series}
+            type="pie"
+            height={350}
+          />
+        )}
       </div>
     </div>
   );

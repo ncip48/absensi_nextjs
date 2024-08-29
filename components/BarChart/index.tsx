@@ -1,8 +1,12 @@
 "use client";
 
 import ApexCharts from "apexcharts";
+import dynamic from "next/dynamic";
 import React from "react";
-import ReactApexChart from "react-apexcharts";
+// import ReactApexChart from "react-apexcharts";
+const ReactApexChart = dynamic(() => import("react-apexcharts"), {
+  ssr: false,
+});
 
 const BarChart = ({
   title,
@@ -13,7 +17,7 @@ const BarChart = ({
   categories: object;
   data: object;
 }) => {
-  const [state, setState] = React.useState({
+  const [state, setState] = React.useState<any>({
     series: data,
     options: {
       grid: {
@@ -26,7 +30,7 @@ const BarChart = ({
       fill: {
         opacity: 1,
       },
-      colors: ["#28a745", "#dc3545"],
+      colors: ["#7695FF", "#667BC6"],
       chart: {
         type: "bar",
         height: 350,
@@ -93,14 +97,14 @@ const BarChart = ({
         </p>
       </div>
       <div className="p-4" id="chart">
-        <ReactApexChart
-          options={{
-            ...state.options,
-          }}
-          series={state.series}
-          type="bar"
-          height={350}
-        />
+        {typeof window !== "undefined" && (
+          <ReactApexChart
+            options={state.options}
+            series={state.series}
+            type="bar"
+            height={350}
+          />
+        )}
       </div>
       <div id="html-dist"></div>
     </div>
