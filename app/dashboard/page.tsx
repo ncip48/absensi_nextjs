@@ -14,7 +14,7 @@ function Index() {
     <>
       {/* <DashboardNavbar active="Home" /> */}
       <div className="mt-12">
-        <div className="mb-6 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-4">
+        <div className="mb-10 grid gap-y-10 gap-x-8 md:grid-cols-2 xl:grid-cols-4">
           <CardTotal
             label="Total Siswa"
             value={10}
@@ -36,7 +36,7 @@ function Index() {
             subtitle="Absen per hari ini"
           />
         </div>
-        <div className="mb-12 grid gap-y-10 gap-x-6 md:grid-cols-1 xl:grid-cols-2">
+        <div className="mb-10 grid gap-y-10 gap-x-8 md:grid-cols-1 xl:grid-cols-2">
           <BarChart
             title="Grafik Absen Tahunan"
             categories={[

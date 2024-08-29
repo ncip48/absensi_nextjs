@@ -97,14 +97,12 @@ const BarChart = ({
         </p>
       </div>
       <div className="p-4" id="chart">
-        {typeof window !== "undefined" && (
-          <ReactApexChart
-            options={state.options}
-            series={state.series}
-            type="bar"
-            height={350}
-          />
-        )}
+        <ReactApexChart
+          options={state.options}
+          series={state.series}
+          type="bar"
+          height={350}
+        />
       </div>
       <div id="html-dist"></div>
     </div>

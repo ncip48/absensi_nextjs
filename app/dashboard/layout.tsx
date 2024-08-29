@@ -88,7 +88,7 @@ export default function DashboardLayout({
           sidenavType === "dark" ? "/img/logo-ct.png" : "/img/logo-ct-dark.png"
         }
       />
-      <div className={`p-4 ${!openSidenav ? "" : "xl:ml-80 xl:pl-0"}`}>
+      <div className={`p-4 px-8 ${!openSidenav ? "" : "xl:ml-80 xl:pl-0"}`}>
         <DashboardNavbar
           onPressMenu={() => setOpenSidenav(!openSidenav)}
           active={
