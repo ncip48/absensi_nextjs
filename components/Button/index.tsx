@@ -15,7 +15,7 @@ function Button({
   block = false,
   onClick,
   formSubmit = false,
-  bg = "",
+  bg,
 }: ButtonProps) {
   return (
     <button

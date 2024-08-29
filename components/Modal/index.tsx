@@ -8,6 +8,7 @@ interface ModalInterface {
   label: string;
   onSave?: () => void;
   loadingSave?: boolean;
+  deleteModal?: boolean;
 }
 
 function Modal({
@@ -17,6 +18,7 @@ function Modal({
   label,
   onSave,
   loadingSave,
+  deleteModal,
 }: ModalInterface) {
   return showModal ? (
     <>
@@ -36,9 +38,12 @@ function Modal({
             </div>
             <div className="relative p-6 flex-auto">{children}</div>
             <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
-              <Button title="Tutup" onClick={closeModal} />
               <Button
-                title="Simpan"
+                title={deleteModal ? "Batalkan" : "Tutup"}
+                onClick={closeModal}
+              />
+              <Button
+                title={deleteModal ? "Ya" : "Simpan"}
                 formSubmit
                 bg="blue"
                 loading={loadingSave}

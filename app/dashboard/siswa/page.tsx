@@ -3,6 +3,7 @@
 import Table from "@/components/Table";
 import {
   createStudent,
+  deleteStudent,
   getStudents,
   updateStudent,
 } from "@/services/actions/student";
@@ -20,9 +21,11 @@ function Index() {
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
   const [modal, setModal] = useState(false);
+  const [modalDelete, setModalDelete] = useState(false);
   const [errors, setErrors] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const ref = useRef<HTMLFormElement>(null);
+  const refDelete = useRef<HTMLFormElement>(null);
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [studentData, setStudentData] = useState<any>({
     id: null,
@@ -113,6 +116,24 @@ function Index() {
     }
   };
 
+  const onSubmitDelete = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsLoading(true);
+
+    try {
+      const res = await deleteStudent(studentData?.nis);
+
+      if (res) {
+        setModalDelete(false);
+        getData();
+      }
+    } catch (error: any) {
+      //   console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const clearInput = () => {
     ref.current?.reset();
     setStudentData({
@@ -146,6 +167,12 @@ function Index() {
             setStudentData(val);
             //set the form with current
             setModal(true);
+          }}
+          onDelete={(val: any) => {
+            console.log(val);
+            setStudentData(val);
+            //set the form with current
+            setModalDelete(true);
           }}
         />
       </CardMain>
@@ -217,6 +244,27 @@ function Index() {
               {errors.find((error: any) => error.for === "sex")?.message}
             </div>
           </div>
+        </Modal>
+      </form>
+
+      <form
+        ref={refDelete}
+        className="space-y-4 md:space-y-6"
+        onSubmit={async (e) => {
+          await onSubmitDelete(e);
+        }}
+      >
+        <Modal
+          closeModal={() => {
+            setModalDelete(false);
+            clearInput();
+          }}
+          showModal={modalDelete}
+          label={"Hapus Siswa"}
+          loadingSave={isLoading}
+          deleteModal
+        >
+          Apakah yakin untuk menghapus data?
         </Modal>
       </form>
     </>

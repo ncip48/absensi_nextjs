@@ -166,3 +166,48 @@ export async function PUT(request: NextRequest) {
     }
   }
 }
+
+export async function DELETE(request: NextRequest) {
+  try {
+    const token = request?.headers?.get("Authorization")?.split(" ")[1];
+    //get the nis from ?nis=
+    const nis = request.nextUrl.searchParams.get("nis");
+    console.log("NIS", nis);
+    const response = await axios.delete(`${baseUrl}/students/v1/nis/${nis}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const result = response.data;
+    return NextResponse.json(result);
+  } catch (error: any) {
+    if (error.response) {
+      console.log(error.response.data);
+      console.log(error.response.status);
+      console.log(error.response.headers);
+      if (error.response.status === 401) {
+        return NextResponse.json(
+          {
+            message: "unauthorized",
+          },
+          { status: error.response.status }
+        );
+      } else {
+        return NextResponse.json(
+          {
+            message: error.message,
+          },
+          { status: error.response.status }
+        );
+      }
+    } else {
+      return NextResponse.json(
+        {
+          message: error.message,
+        },
+        { status: 500 }
+      );
+    }
+  }
+}

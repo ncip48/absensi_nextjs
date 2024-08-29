@@ -8,6 +8,7 @@ interface TableProps {
   noAction?: boolean;
   noStatus?: boolean;
   onEdit?: any;
+  onDelete?: any;
 }
 
 function Table({
@@ -18,9 +19,14 @@ function Table({
   noAction = false,
   noStatus = false,
   onEdit,
+  onDelete,
 }: TableProps) {
   const edit = (item: any) => {
     onEdit(item);
+  };
+
+  const del = (item: any) => {
+    onDelete(item);
   };
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -156,6 +162,12 @@ function Table({
                         className="block antialiased font-sans text-xs font-semibold text-blue-gray-600 cursor-pointer"
                       >
                         Edit
+                      </a>
+                      <a
+                        onClick={() => del(item)}
+                        className="block antialiased font-sans text-xs font-semibold text-blue-gray-600 cursor-pointer"
+                      >
+                        Hapus
                       </a>
                     </td>
                   )}
