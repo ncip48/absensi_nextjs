@@ -21,7 +21,7 @@ const PieChart = ({
     series: data,
     options: {
       labels: label,
-      colors: ["#7695FF", "#667BC6"],
+      colors: ["#295F98", "#7695FF", "#667BC6"],
       theme: {
         mode: "dark",
       },

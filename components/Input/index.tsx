@@ -42,6 +42,8 @@ function Input({
           autoComplete="off"
           className={`focus:outline-none bg-gray-50 text-gray-900 block w-full ${
             leftIcon ? "pl-0" : ""
+          } ${
+            readonly ? "cursor-not-allowed" : ""
           } p-2.5 dark:bg-dark-700  dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-700 dark:focus:border-gray-700`}
           placeholder={placeholder}
         />

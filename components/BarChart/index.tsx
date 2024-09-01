@@ -30,7 +30,7 @@ const BarChart = ({
       fill: {
         opacity: 1,
       },
-      colors: ["#7695FF", "#667BC6"],
+      colors: ["#295F98", "#7695FF", "#667BC6"],
       chart: {
         type: "bar",
         height: 350,

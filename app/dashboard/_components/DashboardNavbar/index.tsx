@@ -55,7 +55,7 @@ function DashboardNavbar({
             </div>
           </div>
           <Link href="/akun" className="p-2 dark:bg-dark-800 rounded-full">
-            <UserIcon className="w-5 h-5 text-inherit" />
+            <UserIcon className="w-5 h-5 text-white" />
           </Link>
         </div>
       </div>

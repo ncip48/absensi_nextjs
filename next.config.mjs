@@ -10,6 +10,10 @@ const nextConfig = {
         source: "/report",
         destination: "/dashboard/report",
       },
+      {
+        source: "/akun",
+        destination: "/dashboard/akun",
+      },
     ];
   },
 };
