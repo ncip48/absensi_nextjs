@@ -1,7 +1,7 @@
 import Nav from "./_components/nav";
 
 export const metadata = {
-  title: "Scan Keluar",
+  title: "Absen Pulang",
 };
 export default function AuthLayout({
   children, // will be a page or nested layout

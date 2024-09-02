@@ -1,6 +1,8 @@
+"use client";
+
 import CardTotal from "@/components/CardTotal";
 import { Metadata } from "next";
-import React from "react";
+import React, { useState } from "react";
 import DashboardNavbar from "./_components/DashboardNavbar";
 import BarChart from "@/components/BarChart";
 import PieChart from "@/components/PieChart";
@@ -10,12 +12,28 @@ import {
   ClockIcon,
   ExclamationTriangleIcon,
 } from "@heroicons/react/24/solid";
-
-export const metadata: Metadata = {
-  title: "Dashboard",
-};
+import { getStatistics } from "@/services/actions/dashboard";
+import useEffectAfterMount from "@/utils/useEffectAfterMount";
 
 function Index() {
+  const [statistics, setStatistics] = useState({
+    totalSiswa: 0,
+    tepatWaktu: 0,
+    terlambat: 0,
+    fullTime: 0,
+  });
+
+  const getData = async () => {
+    const res = await getStatistics();
+    setStatistics(res);
+    console.log(res);
+  };
+
+  useEffectAfterMount(() => {
+    getData();
+    document.title = "Dashboard";
+  }, []);
+
   return (
     <>
       {/* <DashboardNavbar active="Home" /> */}
@@ -23,25 +41,25 @@ function Index() {
         <div className="mb-10 grid gap-y-10 gap-x-8 md:grid-cols-2 xl:grid-cols-4">
           <CardTotal
             label="Total Siswa"
-            value={10}
+            value={statistics?.totalSiswa}
             subtitle="Menampilkan jumlah siswa aktif"
             icon={<AcademicCapIcon className="w-6 h-6 text-white" />}
           />
           <CardTotal
             label="Absen Tepat Waktu"
-            value={5}
+            value={statistics?.tepatWaktu}
             subtitle="Absen per hari ini"
             icon={<ClockIcon className="w-6 h-6 text-white" />}
           />
           <CardTotal
             label="Absen Terlambat"
-            value={5}
+            value={statistics?.terlambat}
             subtitle="Absen per hari ini"
             icon={<ExclamationTriangleIcon className="w-6 h-6 text-white" />}
           />
           <CardTotal
             label="Absen Full Time"
-            value={5}
+            value={statistics?.fullTime}
             subtitle="Absen per hari ini"
             icon={<CheckBadgeIcon className="w-6 h-6 text-white" />}
           />
