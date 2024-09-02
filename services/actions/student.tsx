@@ -197,3 +197,36 @@ export async function getStudentByNIS(nis: string) {
     return;
   }
 }
+
+export async function importStudent(formData: any) {
+  try {
+    const storage = await getSession();
+    const token = storage.user.token;
+    const response = await axios.post(`/api/importStudent`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const result = response.data;
+    if (result.status !== 200) {
+      toast.error(result.message);
+      return null;
+    } else {
+      toast.success("Berhasil mengimport siswa");
+      return result.data;
+    }
+  } catch (error: any) {
+    if (error.response) {
+      console.log(error.response.data);
+      console.log(error.response.status);
+      console.log(error.response.headers);
+      if (error.response.status === 401) {
+        await logout();
+        return;
+      }
+    }
+    toast.error(error.message);
+    return;
+  }
+}

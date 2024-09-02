@@ -63,7 +63,7 @@ export async function presentOutByNISwithToken(nis: string) {
         toast.error("Siswa tidak ditemukan");
         return null;
       }
-      toast.success(`${result.data[0].student.name} berhasil absen keluar`);
+      toast.success(`${result.data[0].student.name} berhasil absen pulang`);
       return result.data[0].student.name;
     }
   } catch (error: any) {

@@ -5,11 +5,13 @@ function CardMain({
   title,
   children,
   onAdd,
+  onImport,
   isAdmin,
 }: {
   title: string;
   children: React.ReactNode;
   onAdd?: () => void;
+  onImport?: () => void;
   isAdmin?: boolean;
 }) {
   return (
@@ -20,9 +22,14 @@ function CardMain({
           <h6 className="block antialiased tracking-normal font-sans text-base font-bold leading-relaxed text-white">
             {title}
           </h6>
-          {onAdd && isAdmin && (
-            <Button onClick={onAdd} title="Tambah" loading={false} />
-          )}
+          <div className="flex gap-2">
+            {onAdd && isAdmin && (
+              <Button onClick={onAdd} title="Tambah" loading={false} />
+            )}
+            {onImport && isAdmin && (
+              <Button onClick={onImport} title="Import" loading={false} />
+            )}
+          </div>
         </div>
         {/* </div> */}
         <div className="p-6 overflow-x-scroll px-0 pt-0 pb-2">{children}</div>

@@ -6,7 +6,7 @@ interface ModalInterface {
   showModal: boolean;
   children: React.ReactNode;
   label: string;
-  onSave?: () => void;
+  onSave?: (event: any) => void;
   loadingSave?: boolean;
   deleteModal?: boolean;
 }
@@ -44,7 +44,8 @@ function Modal({
               />
               <Button
                 title={deleteModal ? "Ya" : "Simpan"}
-                formSubmit
+                formSubmit={!onSave}
+                onClick={onSave}
                 bg="blue"
                 loading={loadingSave}
               />
