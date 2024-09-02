@@ -34,6 +34,7 @@ function Index() {
     name: "",
     grade: "",
     sex: "",
+    kelas: "",
   });
 
   const getData = async () => {
@@ -74,16 +75,18 @@ function Index() {
         nis: z.string().min(1, { message: "Kolom ini diperlukan" }),
         nisn: z.string().min(1, { message: "Kolom ini diperlukan" }),
         name: z.string().min(1, { message: "Kolom ini diperlukan" }),
-        grade: z.string().min(1, { message: "Kolom ini diperlukan" }),
+        // grade: z.string().min(1, { message: "Kolom ini diperlukan" }),
         sex: z.string().min(1, { message: "Kolom ini diperlukan" }),
+        kelas: z.string().min(1, { message: "Kolom ini diperlukan" }),
       });
 
-      const response = schema.safeParse({
+      let response: any = schema.safeParse({
         nis: formData.get("nis"),
         nisn: formData.get("nisn"),
         name: formData.get("name"),
-        grade: formData.get("grade"),
+        // grade: formData.get("grade"),
         sex: formData.get("sex"),
+        kelas: formData.get("kelas"),
       });
 
       // refine errors
@@ -96,6 +99,8 @@ function Index() {
         setErrors(errArr);
         throw err;
       }
+
+      response.data.grade = formData.get("grade");
 
       let res;
       if (isEdit) {
@@ -143,6 +148,7 @@ function Index() {
       name: "",
       grade: "",
       sex: "",
+      kelas: "",
     });
     setErrors([]);
   };
@@ -158,8 +164,8 @@ function Index() {
         <Table
           items={students}
           loading={loading}
-          heads={["NIS", "NISN", "Nama", "Jenis Kelamin", "Status"]}
-          keys={["nis", "nisn", "name", "sex_str"]}
+          heads={["NIS", "NISN", "Nama", "Jenis Kelamin", "Kelas", "Status"]}
+          keys={["nis", "nisn", "name", "sex_str", "kelas"]}
           noAction={!isAdmin}
           onEdit={(val: any) => {
             setIsEdit(true);
@@ -221,6 +227,13 @@ function Index() {
             placeholder="2024/2025"
             errors={errors}
             defaultValue={studentData?.grade}
+          />
+          <Input
+            label="Kelas"
+            name="kelas"
+            placeholder="X MIPA"
+            errors={errors}
+            defaultValue={studentData?.kelas}
           />
           <div>
             <label

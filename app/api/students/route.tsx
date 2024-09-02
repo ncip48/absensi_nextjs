@@ -54,8 +54,10 @@ export async function POST(request: NextRequest) {
       name: string;
       grade: string;
       sex: string;
+      kelas: string;
     }
-    const { nis, nisn, name, grade, sex }: StudentData = await request.json();
+    const { nis, nisn, name, grade, sex, kelas }: StudentData =
+      await request.json();
     const response = await axios.post(
       `${baseUrl}/students/v1/create`,
       {
@@ -63,6 +65,7 @@ export async function POST(request: NextRequest) {
         nisn,
         name,
         grade,
+        kelas,
         sex,
       },
       {
@@ -115,8 +118,9 @@ export async function PUT(request: NextRequest) {
       name: string;
       grade: string;
       sex: string;
+      kelas: string;
     }
-    const { id, nis, nisn, name, grade, sex }: StudentData =
+    const { id, nis, nisn, name, grade, sex, kelas }: StudentData =
       await request.json();
     const response = await axios.put(
       `${baseUrl}/students/v1/${id}`,
@@ -125,6 +129,7 @@ export async function PUT(request: NextRequest) {
         nisn,
         name,
         grade,
+        kelas,
         sex,
       },
       {

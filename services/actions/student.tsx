@@ -46,7 +46,7 @@ export async function createStudent(data: any) {
   try {
     const storage = await getSession();
     const token = storage.user.token;
-    const { nis, nisn, name, grade, sex } = data;
+    const { nis, nisn, name, grade, sex, kelas } = data;
     const response = await axios.post(
       `/api/students`,
       {
@@ -55,6 +55,7 @@ export async function createStudent(data: any) {
         name,
         grade,
         sex,
+        kelas,
       },
       {
         headers: {
@@ -90,7 +91,7 @@ export async function updateStudent(id: any, data: any) {
   try {
     const storage = await getSession();
     const token = storage.user.token;
-    const { nis, nisn, name, grade, sex } = data;
+    const { nis, nisn, name, grade, sex, kelas } = data;
     const response = await axios.put(
       `/api/students`,
       {
@@ -100,6 +101,7 @@ export async function updateStudent(id: any, data: any) {
         name,
         grade,
         sex,
+        kelas,
       },
       {
         headers: {
