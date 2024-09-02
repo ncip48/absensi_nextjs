@@ -365,7 +365,7 @@ function Index() {
             errors={errors}
             defaultValue={formImport?.kelas}
           />
-          <div className="mt-1">
+          <div className="mt-4">
             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
               Upload file
             </label>

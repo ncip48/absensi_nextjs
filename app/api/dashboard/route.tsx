@@ -15,10 +15,11 @@ export async function GET(request: NextRequest) {
       }
     );
     const res = response.data;
+    console.log(res);
     let result;
     if (res.data) {
       const rsd = res.data;
-      console.log(res);
+      console.log(rsd);
       result = {
         ...res,
         data: {
@@ -37,6 +38,17 @@ export async function GET(request: NextRequest) {
         },
       };
     }
+
+    const resSiswa = await axios.get(`${baseUrl}/students/v1/show`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const resultSiswa = resSiswa.data.data.length;
+
+    result.data.totalSiswa = resultSiswa;
+
     return NextResponse.json(result);
   } catch (error: any) {
     if (error.response) {

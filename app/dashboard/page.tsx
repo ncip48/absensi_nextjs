@@ -25,7 +25,7 @@ function Index() {
 
   const getData = async () => {
     const res = await getStatistics();
-    setStatistics({ ...res, totalSiswa: 99 });
+    setStatistics({ ...res });
     console.log(res);
   };
 
