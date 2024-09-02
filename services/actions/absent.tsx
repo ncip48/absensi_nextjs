@@ -64,7 +64,7 @@ export async function presentOutByNISwithToken(nis: string) {
         return null;
       }
       toast.success(`${result.data[0].student.name} berhasil absen pulang`);
-      return result.data[0].student.name;
+      return `${result.data[0].student.name} berhasil absen pulang`;
     }
   } catch (error: any) {
     if (error.response) {
@@ -105,7 +105,7 @@ export async function presentByNISwithToken(nis: string) {
         return null;
       }
       toast.success(`${result.data[0].student.name} berhasil absen masuk`);
-      return result.data[0].student.name;
+      return `${result.data[0].student.name} berhasil absen masuk`;
     }
   } catch (error: any) {
     if (error.response) {

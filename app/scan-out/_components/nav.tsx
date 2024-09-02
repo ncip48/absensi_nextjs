@@ -7,7 +7,7 @@ import { logout } from "../../lib";
 
 function Nav() {
   return (
-    <nav className="w-full bg-transparent text-white shadow-none transition-all px-5 py-1 bg-gray-50 dark:bg-dark-800">
+    <nav className="fixed w-full bg-transparent text-white shadow-none transition-all px-5 py-1 bg-gray-50 dark:bg-dark-800">
       <div className="flex justify-between gap-6 items-center">
         <div className="capitalize">
           <nav aria-label="breadcrumb" className="w-max">

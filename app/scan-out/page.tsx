@@ -16,6 +16,7 @@ import {
 } from "@heroicons/react/24/solid";
 import { Scanner } from "@yudiel/react-qr-scanner";
 import toast from "react-hot-toast";
+import MessageAbsen from "@/components/MessageAbsen";
 
 function Index() {
   const router = useRouter();
@@ -23,6 +24,7 @@ function Index() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errors, setErrors] = useState<any[]>([]);
   const [mode, setMode] = useState<number>(0);
+  const [flashMessage, setFlashMessage] = useState<string>("");
 
   const [thisTime, setThisTime] = useState<any>("00:00:00");
 
@@ -64,6 +66,9 @@ function Index() {
 
       formData.set("nis", "");
       const res = await presentOutByNISwithToken(response.data.nis);
+      if (res) {
+        setFlashMessage(res);
+      }
 
       setErrors([]);
     } catch (error: any) {
@@ -91,6 +96,7 @@ function Index() {
   return (
     <section className="bg-gray-50 dark:bg-dark-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen lg:py-0">
+        {flashMessage.length ? <MessageAbsen text={flashMessage} /> : null}
         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 lg:max-w-3xl xl:p-0 dark:bg-dark-800 dark:border-dark-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <div className="flex items-center justify-between">
