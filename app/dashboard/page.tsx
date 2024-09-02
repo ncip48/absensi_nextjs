@@ -22,11 +22,14 @@ function Index() {
     terlambat: 0,
     fullTime: 0,
   });
+  const [loading, setLoading] = useState(true);
 
   const getData = async () => {
+    setLoading(true);
     const res = await getStatistics();
     setStatistics({ ...res });
     console.log(res);
+    setLoading(false);
   };
 
   useEffectAfterMount(() => {
@@ -64,35 +67,44 @@ function Index() {
             icon={<CheckBadgeIcon className="w-6 h-6 text-white" />}
           />
         </div>
-        <div className="mb-10 grid gap-y-10 gap-x-8 md:grid-cols-1 xl:grid-cols-2">
-          <BarChart
-            title="Grafik Absen 7 Hari"
-            categories={["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"]}
-            data={[
-              {
-                name: "Tepat Waktu",
-                data: [28, 20, 25, 23, 22, 24],
-              },
-              {
-                name: "Terlambat",
-                data: [0, 8, 3, 5, 6, 4],
-              },
-              {
-                name: "Full Time",
-                data: [28, 19, 10, 11, 10, 28],
-              },
-            ]}
-          />
-          <PieChart
-            title="Jumlah Absen Hari Ini"
-            data={[
-              statistics?.tepatWaktu,
-              statistics?.terlambat,
-              statistics?.fullTime,
-            ]}
-            label={["Tepat Waktu", "Terlambat", "Full Time"]}
-          />
-        </div>
+        {!loading ? (
+          <div className="mb-10 grid gap-y-10 gap-x-8 md:grid-cols-1 xl:grid-cols-2">
+            <BarChart
+              title="Grafik Absen 7 Hari"
+              categories={[
+                "Senin",
+                "Selasa",
+                "Rabu",
+                "Kamis",
+                "Jumat",
+                "Sabtu",
+              ]}
+              data={[
+                {
+                  name: "Tepat Waktu",
+                  data: [28, 20, 25, 23, 22, 24],
+                },
+                {
+                  name: "Terlambat",
+                  data: [0, 8, 3, 5, 6, 4],
+                },
+                {
+                  name: "Full Time",
+                  data: [28, 19, 10, 11, 10, 28],
+                },
+              ]}
+            />
+            <PieChart
+              title="Jumlah Absen Hari Ini"
+              data={[
+                statistics?.tepatWaktu,
+                statistics?.terlambat,
+                statistics?.fullTime,
+              ]}
+              label={["Tepat Waktu", "Terlambat", "Full Time"]}
+            />
+          </div>
+        ) : null}
       </div>
     </>
   );
