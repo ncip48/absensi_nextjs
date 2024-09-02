@@ -160,3 +160,42 @@ export async function printAttendanceRange(dateStart: string, dateEnd: string) {
     return;
   }
 }
+
+export async function printAttendanceRange3(
+  dateStart: string,
+  dateEnd: string
+) {
+  try {
+    const storage = await getSession();
+    const token = storage.user.token;
+    const response = await axios.get(
+      `${baseUrl}/attendances/generatePdf?start=${dateStart}&end=${dateEnd}`,
+      {
+        headers: {
+          "Content-Type": "application/octet-stream",
+          Authorization: `Bearer ${token}`,
+        },
+        responseType: "blob",
+      }
+    );
+    const contentType =
+      response.headers["content-type"] || "application/octet-stream";
+
+    // Create a new response with the binary data
+    const binaryStream = response.data;
+
+    return binaryStream;
+  } catch (error: any) {
+    if (error.response) {
+      console.log(error.response.data);
+      console.log(error.response.status);
+      console.log(error.response.headers);
+      if (error.response.status === 401) {
+        await logout();
+        return;
+      }
+    }
+    toast.error(error.message);
+    return;
+  }
+}

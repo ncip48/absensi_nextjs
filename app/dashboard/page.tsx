@@ -25,7 +25,7 @@ function Index() {
 
   const getData = async () => {
     const res = await getStatistics();
-    setStatistics(res);
+    setStatistics({ ...res, totalSiswa: 99 });
     console.log(res);
   };
 
@@ -85,7 +85,11 @@ function Index() {
           />
           <PieChart
             title="Jumlah Absen Hari Ini"
-            data={[20, 8, 28]}
+            data={[
+              statistics?.tepatWaktu,
+              statistics?.terlambat,
+              statistics?.fullTime,
+            ]}
             label={["Tepat Waktu", "Terlambat", "Full Time"]}
           />
         </div>

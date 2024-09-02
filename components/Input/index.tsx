@@ -9,6 +9,7 @@ interface InputProps {
   readonly?: boolean;
   leftIcon?: React.ReactNode;
   defaultValue?: any;
+  info?: string;
 }
 
 function Input({
@@ -20,6 +21,7 @@ function Input({
   readonly,
   leftIcon,
   defaultValue,
+  info,
   ...otherProps
 }: InputProps) {
   return (
@@ -51,6 +53,7 @@ function Input({
       <div className="mt-1 text-xs text-red-500">
         {errors.find((error: any) => error.for === name)?.message}
       </div>
+      {info && <div className="mt-1 text-xs text-green-500">{info}</div>}
     </div>
   );
 }

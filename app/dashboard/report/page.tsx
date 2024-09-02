@@ -9,6 +9,7 @@ import {
   getAttendanceRange,
   printAttendanceRange,
   printAttendanceRange2,
+  printAttendanceRange3,
 } from "@/services/actions/report";
 import Button from "@/components/Button";
 import { getSession } from "@/app/lib";
@@ -87,29 +88,46 @@ function Index() {
     // const blob = await res.blob();
     // const url = URL.createObjectURL(blob);
     // window.open(url); // Open the PDF in a new tab
-    const token = await getSession();
-    const t = token.user.token;
-    const response = await fetch(
-      `/api/pdf?start=${dateStart}T00:00:00&end=${dateEnd}T00:00:00`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${t}`,
-        },
-        body: JSON.stringify({
-          /* your POST data */
-        }),
-      }
-    );
 
-    if (response.ok) {
-      const blob = await response.blob();
-      const url = URL.createObjectURL(blob);
-      window.open(url); // Open the PDF in a new tab
-    } else {
-      console.error("Failed to fetch PDF:", response.status);
-    }
+    const dStart = dateStart;
+    const dEnd = new Date(
+      new Date(dateEnd).setDate(new Date(dateEnd).getDate() + 1)
+    )
+      .toISOString()
+      .split("T")[0];
+
+    const res = await printAttendanceRange3(
+      dStart + "T00:00:00",
+      dEnd + "T00:00:00"
+    );
+    console.log(res);
+    const url = URL.createObjectURL(res);
+    window.open(url); // Open the PDF in a new tab
+
+    //alternatif
+    // const token = await getSession();
+    // const t = token.user.token;
+    // const response = await fetch(
+    //   `/api/pdf?start=${dateStart}T00:00:00&end=${dateEnd}T00:00:00`,
+    //   {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: `Bearer ${t}`,
+    //     },
+    //     body: JSON.stringify({
+    //       /* your POST data */
+    //     }),
+    //   }
+    // );
+
+    // if (response.ok) {
+    //   const blob = await response.blob();
+    //   const url = URL.createObjectURL(blob);
+    //   window.open(url); // Open the PDF in a new tab
+    // } else {
+    //   console.error("Failed to fetch PDF:", response.status);
+    // }
     // setStudents(res);
     setLoadingPdf(false);
   };

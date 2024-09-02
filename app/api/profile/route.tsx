@@ -51,14 +51,19 @@ export async function PUT(request: NextRequest) {
     const token = request?.headers?.get("Authorization")?.split(" ")[1];
     interface ProfileData {
       name: string;
+      username: string;
+      password: string;
       phoneNumber: string;
     }
-    const { name, phoneNumber }: ProfileData = await request.json();
+    const { name, phoneNumber, username, password }: ProfileData =
+      await request.json();
     const response = await axios.put(
       `${baseUrl}/v1/user/`,
       {
         name,
         phoneNumber,
+        username,
+        password,
       },
       {
         headers: {

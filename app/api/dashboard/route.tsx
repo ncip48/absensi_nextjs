@@ -17,12 +17,14 @@ export async function GET(request: NextRequest) {
     const res = response.data;
     let result;
     if (res.data) {
+      const rsd = res.data;
+      console.log(res);
       result = {
         ...res,
         data: {
-          tepatWaktu: res[0][0]?.data[0] ?? 0,
-          terlambat: res[0][2]?.data[0] ?? 0,
-          fullTime: res[0][1]?.data[0] ?? 0,
+          tepatWaktu: rsd[0]?.data[0] ?? 0,
+          terlambat: rsd[2]?.data[0] ?? 0,
+          fullTime: rsd[1]?.data[0] ?? 0,
         },
       };
     } else {

@@ -76,13 +76,9 @@ export async function updateProfile(data: any) {
   try {
     const storage = await getSession();
     const token = storage.user.token;
-    const { name, phoneNumber } = data;
     const response = await axios.put(
       `/api/profile`,
-      {
-        name,
-        phoneNumber,
-      },
+      { ...data },
       {
         headers: {
           "Content-Type": "application/json",

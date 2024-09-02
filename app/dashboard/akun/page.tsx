@@ -44,13 +44,20 @@ function Index() {
 
       const schema = z.object({
         name: z.string().min(1, { message: "Kolom ini diperlukan" }),
+        username: z.string().min(1, { message: "Kolom ini diperlukan" }),
         phoneNumber: z.string().min(1, { message: "Kolom ini diperlukan" }),
       });
 
-      const response = schema.safeParse({
+      let response: any = schema.safeParse({
         name: formData.get("name"),
+        username: formData.get("username"),
         phoneNumber: formData.get("phoneNumber"),
       });
+
+      const password = formData.get("password");
+      if (password) {
+        response.data.password = formData.get("password");
+      }
 
       // refine errors
       if (!response.success) {
@@ -124,7 +131,6 @@ function Index() {
               placeholder="abdul"
               errors={errors}
               defaultValue={profileData?.username}
-              readonly
             />
             <Input
               label="Email"
@@ -147,6 +153,14 @@ function Index() {
               placeholder="081111111111"
               errors={errors}
               defaultValue={profileData?.phoneNumber}
+            />
+            <Input
+              label="Password"
+              name="password"
+              placeholder="********"
+              errors={errors}
+              type="password"
+              info="Kosongkan jika tidak ingin mengganti password"
             />
             <Button title="Simpan" formSubmit loading={isLoading} />
           </form>
