@@ -10,6 +10,8 @@ interface InputProps {
   leftIcon?: React.ReactNode;
   defaultValue?: any;
   info?: string;
+  autoFocus?: any;
+  onBlur?: any;
 }
 
 function Input({
@@ -22,6 +24,8 @@ function Input({
   leftIcon,
   defaultValue,
   info,
+  autoFocus,
+  onBlur,
   ...otherProps
 }: InputProps) {
   return (
@@ -48,6 +52,8 @@ function Input({
             readonly ? "cursor-not-allowed" : ""
           } p-2.5 dark:bg-dark-700  dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-700 dark:focus:border-gray-700`}
           placeholder={placeholder}
+          autoFocus={autoFocus}
+          onBlur={onBlur}
         />
       </div>
       <div className="mt-1 text-xs text-red-500">

@@ -95,7 +95,7 @@ function Index() {
 
   return (
     <section className="bg-gray-50 dark:bg-dark-900">
-      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen lg:py-0">
+      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen lg:py-0 gap-12">
         {flashMessage.length ? <MessageAbsen text={flashMessage} /> : null}
         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 lg:max-w-3xl xl:p-0 dark:bg-dark-800 dark:border-dark-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -129,6 +129,14 @@ function Index() {
                   errors={errors}
                   placeholder="123456"
                   leftIcon={<QrCodeIcon className="w-5 h-5 text-inherit" />}
+                  autoFocus
+                  onBlur={(e: any) => {
+                    // only re-focus if the user clicked on something
+                    // that was NOT an input element
+                    if (e.relatedTarget === null) {
+                      e.target.focus();
+                    }
+                  }}
                 />
               )}
               {mode == 1 && (

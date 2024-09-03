@@ -50,6 +50,14 @@ function Index() {
         second: "2-digit",
         hour12: false,
       });
+      item.timeout_parse = item.timeout
+        ? new Date(item.timeout).toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            hour12: false,
+          })
+        : "-";
       item.tanggal = new Date(item.timein).toLocaleDateString("id-ID", {
         day: "2-digit",
         month: "2-digit",
@@ -171,8 +179,14 @@ function Index() {
         <Table
           items={students}
           loading={loading}
-          heads={["Tanggal", "NIS", "Nama", "Jam Masuk"]}
-          keys={["tanggal", "student.nis", "student.name", "timein_parse"]}
+          heads={["Tanggal", "NIS", "Nama", "Jam Masuk", "Jam Pulang"]}
+          keys={[
+            "tanggal",
+            "student.nis",
+            "student.name",
+            "timein_parse",
+            "timeout_parse",
+          ]}
           noAction
           noStatus
         />

@@ -132,6 +132,14 @@ function Index() {
                   errors={errors}
                   placeholder="123456"
                   leftIcon={<QrCodeIcon className="w-5 h-5 text-inherit" />}
+                  autoFocus
+                  onBlur={(e: any) => {
+                    // only re-focus if the user clicked on something
+                    // that was NOT an input element
+                    if (e.relatedTarget === null) {
+                      e.target.focus();
+                    }
+                  }}
                 />
               )}
               {mode == 1 && (
