@@ -53,6 +53,104 @@ export function Sidenav({
     setNewRoutes(newRoutes);
   };
 
+  //find the current pathname in newRoutes childs then find the child path, if same set to true
+  function findParentRoute(pathname: string, routes: any) {
+    for (const route of routes) {
+      if (route.childs) {
+        for (const child of route.childs) {
+          if (child.path === pathname) {
+            return route;
+          }
+        }
+      }
+    }
+    return null;
+  }
+
+  // console.log(findParentRoute(pathname, newRoutes));
+
+  // State to keep track of which parent routes are expanded
+  const [expandedRoutes, setExpandedRoutes] = useState<string[]>([]);
+
+  useEffect(() => {
+    const parent = findParentRoute(pathname, routes);
+    if (parent) {
+      setExpandedRoutes([...expandedRoutes, parent.name]);
+    } else {
+      setExpandedRoutes([]);
+    }
+  }, [pathname]);
+
+  // Function to toggle the visibility of child routes
+  const toggleExpand = (name: string) => {
+    setExpandedRoutes((prev) =>
+      prev.includes(name)
+        ? prev.filter((route) => route !== name)
+        : [...prev, name]
+    );
+  };
+
+  // Recursive function to render routes
+  const renderRoutes = (routes: any[], pathname: string) => {
+    return routes.map(({ icon, name, path, childs }: any) => (
+      <div key={name} className="relative">
+        {childs ? (
+          <button
+            onClick={() => toggleExpand(name)}
+            className={`w-full flex items-center gap-4 px-4 py-3 rounded-lg font-sans font-bold text-center transition-all ${
+              path === pathname
+                ? "bg-dark-800 text-white shadow-md shadow-blue-gray-500/10 hover:shadow-lg hover:shadow-blue-gray-500/20"
+                : "text-gray-500 hover:bg-dark-800"
+            }`}
+          >
+            {icon}
+            <p className="block antialiased font-sans text-base leading-relaxed text-inherit font-medium capitalize">
+              {name}
+            </p>
+            <span
+              className={`ml-auto transition-transform ${
+                expandedRoutes.includes(name) ? "rotate-180" : "rotate-0"
+              }`}
+            >
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M19 9l-7 7-7-7"
+                ></path>
+              </svg>
+            </span>
+          </button>
+        ) : (
+          <Link href={path} passHref>
+            <button
+              className={`w-full flex items-center gap-4 px-4 py-3 rounded-lg font-sans font-bold text-center transition-all ${
+                path === pathname
+                  ? "bg-dark-800 text-white shadow-md shadow-blue-gray-500/10 hover:shadow-lg hover:shadow-blue-gray-500/20"
+                  : "text-gray-500 hover:bg-dark-800"
+              }`}
+            >
+              {icon}
+              <p className="block antialiased font-sans text-base leading-relaxed text-inherit font-medium capitalize">
+                {name}
+              </p>
+            </button>
+          </Link>
+        )}
+        {childs && expandedRoutes.includes(name) && (
+          <div className="ml-4 mt-2">{renderRoutes(childs, pathname)}</div>
+        )}
+      </div>
+    ));
+  };
+
   return (
     <aside
       className={`${sidenavTypes[sidenavType]} ${
@@ -73,22 +171,7 @@ export function Sidenav({
         </div>
       </div>
       <div className="m-4 mb-4 flex flex-col gap-1">
-        {newRoutes.map(({ icon, name, path }: any) => (
-          <Link href={path} key={name}>
-            <button
-              className={`align-middle select-none font-sans font-bold text-center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 rounded-lg ${
-                path === pathname
-                  ? "bg-dark-800 text-white shadow-md shadow-blue-gray-500/10 hover:shadow-lg hover:shadow-blue-gray-500/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
-                  : "text-gray-500 active:bg-dark-800"
-              } w-full flex items-center gap-4 px-4 capitalize`}
-            >
-              {icon}
-              <p className="block antialiased font-sans text-base leading-relaxed text-inherit font-medium capitalize">
-                {name}
-              </p>
-            </button>
-          </Link>
-        ))}
+        {renderRoutes(newRoutes, pathname)}
         <button
           onClick={(e) => {
             logout();

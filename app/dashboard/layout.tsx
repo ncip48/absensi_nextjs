@@ -10,6 +10,7 @@ import {
   DocumentIcon,
   InformationCircleIcon,
   Cog6ToothIcon,
+  EllipsisHorizontalIcon,
 } from "@heroicons/react/24/solid";
 import DashboardNavbar from "./_components/DashboardNavbar";
 import useEffectAfterMount from "@/utils/useEffectAfterMount";
@@ -47,6 +48,29 @@ export default function DashboardLayout({
       path: "/report",
       active: "Report",
       role: [1],
+      childs: [
+        {
+          icon: <EllipsisHorizontalIcon {...icon} />,
+          name: "report absen",
+          path: "/report-absen",
+          active: "Report Absen",
+          role: [1],
+        },
+        // {
+        //   icon: <EllipsisHorizontalIcon {...icon} />,
+        //   name: "report per siswa",
+        //   path: "/report-siswa",
+        //   active: "Report Siswa",
+        //   role: [1],
+        // },
+        // {
+        //   icon: <EllipsisHorizontalIcon {...icon} />,
+        //   name: "report per kelas",
+        //   path: "/report-kelas",
+        //   active: "Report Kelas",
+        //   role: [1],
+        // },
+      ],
     },
   ];
 
@@ -78,6 +102,23 @@ export default function DashboardLayout({
     }
   }, [pathname, isDesktop]);
 
+  const findActiveRoute = (routes: any[], pathname: string) => {
+    // Check if any route's path matches the pathname or if any of its children match
+    for (const route of routes) {
+      if (route.path === pathname) {
+        return route.active;
+      }
+      if (route.childs) {
+        for (const child of route.childs) {
+          if (child.path === pathname) {
+            return child.active; // Return child's active label if child matches
+          }
+        }
+      }
+    }
+    return "Home"; // Default active label if no match is found
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-dark-900">
       <Sidenav
@@ -91,10 +132,7 @@ export default function DashboardLayout({
       <div className={`p-4 px-8 ${!openSidenav ? "" : "xl:ml-80 xl:pl-0"}`}>
         <DashboardNavbar
           onPressMenu={() => setOpenSidenav(!openSidenav)}
-          active={
-            routes.find((route: any) => route.path === pathname)?.active ||
-            "Home"
-          }
+          active={findActiveRoute(routes, pathname)}
         />
         {/* <Configurator /> */}
         {/* <IconButton

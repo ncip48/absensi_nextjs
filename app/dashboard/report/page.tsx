@@ -64,7 +64,7 @@ function Index() {
         year: "numeric",
       });
     });
-    res.sort(
+    res?.sort(
       (a: any, b: any) =>
         new Date(b.timein).getTime() - new Date(a.timein).getTime()
     );

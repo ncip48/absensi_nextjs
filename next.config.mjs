@@ -11,6 +11,10 @@ const nextConfig = {
         destination: "/dashboard/report",
       },
       {
+        source: "/report-absen",
+        destination: "/dashboard/report",
+      },
+      {
         source: "/akun",
         destination: "/dashboard/akun",
       },
