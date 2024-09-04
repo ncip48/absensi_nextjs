@@ -9,8 +9,10 @@ export async function POST(req: NextRequest) {
     const token = req?.headers?.get("Authorization")?.split(" ")[1];
     const dateStart = req.nextUrl.searchParams.get("start");
     const dateEnd = req.nextUrl.searchParams.get("end");
+    const nis = req.nextUrl.searchParams.get("nis");
+    const kelas = req.nextUrl.searchParams.get("kelas");
     const response = await axios.get(
-      `${baseUrl}/attendances/generatePdf?start=${dateStart}&end=${dateEnd}`,
+      `${baseUrl}/attendances/generatePdf?start=${dateStart}&end=${dateEnd}&nis=${nis}&kelas=${kelas}`,
       {
         headers: {
           "Content-Type": "application/pdf",

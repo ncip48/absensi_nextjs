@@ -12,7 +12,11 @@ const nextConfig = {
       },
       {
         source: "/report-absen",
-        destination: "/dashboard/report",
+        destination: "/dashboard/report/absen",
+      },
+      {
+        source: "/report-siswa",
+        destination: "/dashboard/report/siswa",
       },
       {
         source: "/akun",

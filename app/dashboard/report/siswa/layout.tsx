@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Report",
+  title: "Report Siswa",
 };
 export default function AuthLayout({
   children, // will be a page or nested layout

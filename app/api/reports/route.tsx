@@ -8,16 +8,32 @@ export async function GET(req: NextRequest) {
     const token = req?.headers?.get("Authorization")?.split(" ")[1];
     const dateStart = req.nextUrl.searchParams.get("start");
     const dateEnd = req.nextUrl.searchParams.get("end");
-    const response = await axios.get(
-      `${baseUrl}/attendances/v1/range?start=${dateStart}&end=${dateEnd}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    const result = response.data;
+    const idStudent = req.nextUrl.searchParams.get("idStudent");
+    let response;
+
+    if (idStudent) {
+      response = await axios.get(
+        `${baseUrl}/attendances/v1/${idStudent}/range?start=${dateStart}&end=${dateEnd}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    } else {
+      response = await axios.get(
+        `${baseUrl}/attendances/v1/range?start=${dateStart}&end=${dateEnd}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    }
+
+    const result = response?.data;
     return NextResponse.json(result);
   } catch (error: any) {
     if (error.response) {
