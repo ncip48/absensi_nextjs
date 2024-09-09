@@ -63,13 +63,13 @@ export default function DashboardLayout({
           active: "Report Siswa",
           role: [1],
         },
-        // {
-        //   icon: <EllipsisHorizontalIcon {...icon} />,
-        //   name: "report per kelas",
-        //   path: "/report-kelas",
-        //   active: "Report Kelas",
-        //   role: [1],
-        // },
+        {
+          icon: <EllipsisHorizontalIcon {...icon} />,
+          name: "report per kelas",
+          path: "/report-kelas",
+          active: "Report Kelas",
+          role: [1],
+        },
       ],
     },
   ];

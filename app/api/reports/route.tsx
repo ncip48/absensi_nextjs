@@ -9,6 +9,7 @@ export async function GET(req: NextRequest) {
     const dateStart = req.nextUrl.searchParams.get("start");
     const dateEnd = req.nextUrl.searchParams.get("end");
     const idStudent = req.nextUrl.searchParams.get("idStudent");
+    const kelas = req.nextUrl.searchParams.get("kelas");
     let response;
 
     if (idStudent) {
@@ -23,7 +24,7 @@ export async function GET(req: NextRequest) {
       );
     } else {
       response = await axios.get(
-        `${baseUrl}/attendances/v1/range?start=${dateStart}&end=${dateEnd}`,
+        `${baseUrl}/attendances/v1/range?start=${dateStart}&end=${dateEnd}&kelas=${kelas}`,
         {
           headers: {
             "Content-Type": "application/json",

@@ -14,10 +14,12 @@ import {
 import Button from "@/components/Button";
 import { getSession } from "@/app/lib";
 import { getStudents } from "@/services/actions/student";
+import Select from "react-tailwindcss-select";
 
 function Index() {
   const [datas, setDatas] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [loadingSiswa, setLoadingSiswa] = useState(false);
   const [loadingPdf, setLoadingPdf] = useState(false);
   const [dateStart, setDateStart] = useState(
     new Date(new Date().setDate(new Date().getDate() - 7))
@@ -30,9 +32,11 @@ function Index() {
       .split("T")[0]
   );
   const [students, setStudents] = useState([]);
+  const [studentsAsli, setStudentsAsli] = useState([]);
   const [student, setStudent] = useState({
-    id: "",
-    nis: "",
+    value: "",
+    label: "",
+    disabled: false,
   });
 
   const getData = async () => {
@@ -48,10 +52,14 @@ function Index() {
     console.log(student);
     // return;
 
+    const searchIdStudent: any = studentsAsli.filter(
+      (val: any) => val.nis == student.value
+    )[0];
+
     let res = await getAttendanceRange(
       dStart + "T00:00:00",
       dEnd + "T00:00:00",
-      student?.id
+      searchIdStudent?.id
     );
     res?.map((item: any) => {
       item.timein_parse = new Date(item.timein).toLocaleTimeString([], {
@@ -96,7 +104,7 @@ function Index() {
       dStart + "T00:00:00",
       dEnd + "T00:00:00",
       "",
-      student?.nis
+      student?.value
     );
     console.log(res);
     const url = URL.createObjectURL(res);
@@ -109,15 +117,25 @@ function Index() {
   }, []);
 
   const getSiswa = async () => {
+    setLoadingSiswa(true);
     let res = await getStudents();
-    setStudents(res);
+
+    setStudentsAsli(res);
+
+    const newRes = res.map((item: any) => ({
+      value: item.nis,
+      label: item.name,
+    }));
+
+    setStudents(newRes);
+    setLoadingSiswa(false);
   };
 
   return (
     <>
       {/* <DashboardNavbar active="Report" /> */}
       <CardMain title="Laporan Absensi per Siswa">
-        <div className="flex flex-row gap-2 mb-6">
+        <div className="flex flex-row gap-2 mb-6 items-center">
           <div className="flex items-center">
             <input
               type="date"
@@ -142,24 +160,35 @@ function Index() {
               className="px-3 py-2.5 ml-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:bg-dark-900 dark:text-gray-300"
             />
           </div>
-          <div className="flex items-center">
-            <select
-              name="student"
-              defaultValue=""
-              onChange={(e: any) => setStudent(JSON.parse(e.target.value))}
-              className="p-2.5 block max-w-52 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-dark-900 dark:text-gray-300 dark:placeholder-gray-400 dark:focus:ring-gray-700 dark:focus:border-gray-700"
-            >
-              <option value="" disabled>
-                -- Pilih Siswa --
-              </option>
-              {students?.map((item: any, index: number) => {
-                return (
-                  <option key={index} value={JSON.stringify(item)}>
-                    {item.name}
-                  </option>
-                );
-              })}
-            </select>
+          <div className="flex items-center w-52">
+            <Select
+              value={student}
+              classNames={{
+                menu: "absolute z-auto border-0 w-full bg-white shadow-lg border rounded py-1 mt-1.5 text-sm text-gray-700 dark:bg-dark-700 dark:text-gray-300",
+                listItem: ({ isSelected }) =>
+                  `block transition duration-200 px-2 py-2 cursor-pointer select-none truncate rounded ${
+                    isSelected
+                      ? `text-white bg-blue-500`
+                      : `text-gray-500 hover:bg-blue-100 hover:text-blue-500`
+                  }`,
+              }}
+              formatOptionLabel={(data) => (
+                <li
+                  className={`block transition duration-200 px-2 py-2 cursor-pointer select-none truncate rounded ${
+                    !data.isSelected
+                      ? `text-white`
+                      : `text-white dark:bg-dark-900`
+                  }`}
+                >
+                  {data.label}
+                </li>
+              )}
+              primaryColor="indigo"
+              onChange={(value: any) => setStudent(value)}
+              options={students}
+              isSearchable
+              loading={loadingSiswa}
+            />
           </div>
           <Button title="Lihat" onClick={getData} loading={loading} />
           <Button title="Cetak PDF" onClick={printData} loading={loadingPdf} />

@@ -19,6 +19,10 @@ const nextConfig = {
         destination: "/dashboard/report/siswa",
       },
       {
+        source: "/report-kelas",
+        destination: "/dashboard/report/kelas",
+      },
+      {
         source: "/akun",
         destination: "/dashboard/akun",
       },

@@ -77,13 +77,14 @@ export async function getAttendanceToday() {
 export async function getAttendanceRange(
   dateStart: string,
   dateEnd: string,
-  idStudent: string = ""
+  idStudent: string = "",
+  kelas: string = ""
 ) {
   try {
     const storage = await getSession();
     const token = storage.user.token;
     const response = await axios.get(
-      `/api/reports?start=${dateStart}&end=${dateEnd}&idStudent=${idStudent}`,
+      `/api/reports?start=${dateStart}&end=${dateEnd}&idStudent=${idStudent}&kelas=${kelas}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -169,13 +170,14 @@ export async function printAttendanceRange3(
   dateStart: string,
   dateEnd: string,
   kelas: string = "",
-  nis: string = ""
+  nis: string = "",
+  tipe: string = ""
 ) {
   try {
     const storage = await getSession();
     const token = storage.user.token;
     const response = await axios.get(
-      `${baseUrl}/attendances/generatePdf?start=${dateStart}&end=${dateEnd}&nis=${nis}&kelas=${kelas}`,
+      `${baseUrl}/attendances/generatePdf?start=${dateStart}&end=${dateEnd}&nis=${nis}&kelas=${kelas}&tipe=${tipe}`,
       {
         headers: {
           "Content-Type": "application/octet-stream",
