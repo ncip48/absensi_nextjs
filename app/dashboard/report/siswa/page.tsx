@@ -165,7 +165,7 @@ function Index() {
               value={student}
               classNames={{
                 menu: "absolute z-auto border-0 w-full bg-white shadow-lg border rounded py-1 mt-1.5 text-sm text-gray-700 dark:bg-dark-700 dark:text-gray-300",
-                listItem: ({ isSelected }) =>
+                listItem: (isSelected) =>
                   `block transition duration-200 px-2 py-2 cursor-pointer select-none truncate rounded ${
                     isSelected
                       ? `text-white bg-blue-500`
