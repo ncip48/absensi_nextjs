@@ -23,9 +23,9 @@ export async function GET(request: NextRequest) {
       result = {
         ...res,
         data: {
-          tepatWaktu: rsd[0]?.data[0] ?? 0,
+          tepatWaktu: rsd[1]?.data[0] ?? 0,
           terlambat: rsd[2]?.data[0] ?? 0,
-          fullTime: rsd[1]?.data[0] ?? 0,
+          fullTime: rsd[0]?.data[0] ?? 0,
         },
       };
     } else {
