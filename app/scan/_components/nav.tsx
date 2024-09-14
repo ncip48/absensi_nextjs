@@ -22,7 +22,7 @@ function Nav() {
               <li className="flex items-center text-blue-gray-900 antialiased font-sans text-sm font-normal leading-normal cursor-pointer transition-colors duration-300 hover:text-light-blue-500">
                 <Link href="/scan-out">
                   <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal opacity-50 transition-all hover:text-blue-500 hover:opacity-100 dark:text-white">
-                    Absen Pulang
+                    Absen Kedua
                   </p>
                 </Link>
               </li>
