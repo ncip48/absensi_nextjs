@@ -50,6 +50,8 @@ export async function GET(request: NextRequest) {
     result.data.totalSiswa = resultSiswa;
 
     const thisDate = new Date().toISOString().split("T")[0];
+    // const thisDate = "2024-09-13";
+    console.log(thisDate);
 
     const topTen = await axios.get(
       `${baseUrl}/attendances/v1/toptentepatwaktu?tgl=${thisDate}`,

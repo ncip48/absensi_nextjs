@@ -108,17 +108,19 @@ function Table({
             records?.map((item: any, index: number) => {
               return (
                 <tr key={index}>
-                  <td
-                    className={`py-3 px-5 ${
-                      index === items.length - 1
-                        ? ""
-                        : "border-b border-bluegray-50"
-                    }`}
-                  >
-                    <p className="block antialiased font-sans text-xs font-semibold text-blue-gray-600">
-                      {index + 1}
-                    </p>
-                  </td>
+                  {!noNo && (
+                    <td
+                      className={`py-3 px-5 ${
+                        index === items.length - 1
+                          ? ""
+                          : "border-b border-bluegray-50"
+                      }`}
+                    >
+                      <p className="block antialiased font-sans text-xs font-semibold text-blue-gray-600">
+                        {index + 1}
+                      </p>
+                    </td>
+                  )}
                   {keys.map((it: any, i: number) => {
                     return (
                       <td
