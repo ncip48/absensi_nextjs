@@ -49,6 +49,22 @@ export async function GET(request: NextRequest) {
 
     result.data.totalSiswa = resultSiswa;
 
+    const thisDate = new Date().toISOString().split("T")[0];
+
+    const topTen = await axios.get(
+      `${baseUrl}/attendances/v1/toptentepatwaktu?tgl=${thisDate}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    console.log("TopTen", topTen.data);
+
+    result.data.topTen = topTen.data.data || [];
+
     return NextResponse.json(result);
   } catch (error: any) {
     if (error.response) {

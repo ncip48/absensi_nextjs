@@ -14,6 +14,7 @@ import {
 } from "@heroicons/react/24/solid";
 import { getStatistics } from "@/services/actions/dashboard";
 import useEffectAfterMount from "@/utils/useEffectAfterMount";
+import TopTenAbsent from "@/components/TopTenAbsent";
 
 function Index() {
   const [statistics, setStatistics] = useState({
@@ -21,6 +22,7 @@ function Index() {
     tepatWaktu: 0,
     terlambat: 0,
     fullTime: 0,
+    topTen: [],
   });
   const [loading, setLoading] = useState(true);
 
@@ -69,31 +71,7 @@ function Index() {
         </div>
         {!loading ? (
           <div className="mb-10 grid gap-y-10 gap-x-8 md:grid-cols-1 xl:grid-cols-2">
-            <BarChart
-              title="Grafik Absen 7 Hari"
-              categories={[
-                "Senin",
-                "Selasa",
-                "Rabu",
-                "Kamis",
-                "Jumat",
-                "Sabtu",
-              ]}
-              data={[
-                {
-                  name: "Tepat Waktu",
-                  data: [28, 20, 25, 23, 22, 24],
-                },
-                {
-                  name: "Terlambat",
-                  data: [0, 8, 3, 5, 6, 4],
-                },
-                {
-                  name: "Full Time",
-                  data: [28, 19, 10, 11, 10, 28],
-                },
-              ]}
-            />
+            <TopTenAbsent data={statistics?.topTen} title="Top 10 Absen" />
             <PieChart
               title="Jumlah Absen Hari Ini"
               data={[

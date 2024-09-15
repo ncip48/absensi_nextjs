@@ -124,7 +124,7 @@ function Index() {
 
     const newRes = res.map((item: any) => ({
       value: item.nis,
-      label: item.name,
+      label: `${item.kelas} | ${item.name}`,
     }));
 
     setStudents(newRes);
@@ -160,7 +160,7 @@ function Index() {
               className="px-3 py-2.5 ml-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:bg-dark-900 dark:text-gray-300"
             />
           </div>
-          <div className="flex items-center w-52">
+          <div className="flex items-center w-[350px]">
             <Select
               value={student}
               classNames={{
@@ -196,7 +196,7 @@ function Index() {
         <Table
           items={datas}
           loading={loading}
-          heads={["Tanggal", "Jam Masuk", "Jam Pulang"]}
+          heads={["Tanggal", "Absen Masuk", "Absen Kedua"]}
           keys={["tanggal", "timein_parse", "timeout_parse"]}
           noAction
           noStatus

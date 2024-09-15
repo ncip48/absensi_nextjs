@@ -179,7 +179,7 @@ function Index() {
         <Table
           items={students}
           loading={loading}
-          heads={["Tanggal", "NIS", "Nama", "Jam Masuk", "Jam Pulang"]}
+          heads={["Tanggal", "NIS", "Nama", "Absen Masuk", "Absen Kedua"]}
           keys={[
             "tanggal",
             "student.nis",

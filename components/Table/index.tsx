@@ -9,6 +9,9 @@ interface TableProps {
   noStatus?: boolean;
   onEdit?: any;
   onDelete?: any;
+  noNo?: boolean;
+  noPagination?: boolean;
+  wFull?: boolean;
 }
 
 function Table({
@@ -20,6 +23,9 @@ function Table({
   noStatus = false,
   onEdit,
   onDelete,
+  noNo = false,
+  noPagination = false,
+  wFull = false,
 }: TableProps) {
   const edit = (item: any) => {
     onEdit(item);
@@ -34,7 +40,7 @@ function Table({
   const lastIndex = currentPage * nbPerPage;
   const startIndex = lastIndex - nbPerPage;
   const numberOfPages = Math.ceil(items.length / nbPerPage);
-  const records = items.slice(startIndex, lastIndex);
+  const records = noPagination ? items : items.slice(startIndex, lastIndex);
 
   function nextPage() {
     if (currentPage != numberOfPages) {
@@ -50,14 +56,16 @@ function Table({
 
   return (
     <>
-      <table className="w-full min-w-[640px] table-auto">
+      <table className={`w-full ${wFull ? "" : "min-w-[640px]"} table-auto`}>
         <thead>
           <tr>
-            <th className="border-b border-bluegray-50 py-3 px-5 text-left">
-              <p className="block antialiased font-sans text-[11px] font-bold uppercase text-blue-gray-400">
-                No
-              </p>
-            </th>
+            {!noNo && (
+              <th className="border-b border-bluegray-50 py-3 px-5 text-left">
+                <p className="block antialiased font-sans text-[11px] font-bold uppercase text-blue-gray-400">
+                  No
+                </p>
+              </th>
+            )}
             {heads?.map((item: any, index: number) => {
               return (
                 <th
@@ -177,27 +185,29 @@ function Table({
           )}
         </tbody>
       </table>
-      <div className="w-full flex flex-row items-center p-5">
-        <div className="flex flex-row items-center gap-4">
-          <span
-            className="cursor-pointer font-semibold"
-            onClick={() => prevPage()}
-          >
-            prev
-          </span>
-          <div className="flex flex-row items-center">
-            <span>{currentPage}</span>
-            <span>/</span>
-            <span>{numberOfPages}</span>
+      {!noPagination && (
+        <div className="w-full flex flex-row items-center p-5">
+          <div className="flex flex-row items-center gap-4">
+            <span
+              className="cursor-pointer font-semibold"
+              onClick={() => prevPage()}
+            >
+              prev
+            </span>
+            <div className="flex flex-row items-center">
+              <span>{currentPage}</span>
+              <span>/</span>
+              <span>{numberOfPages}</span>
+            </div>
+            <span
+              className="cursor-pointer font-semibold"
+              onClick={() => nextPage()}
+            >
+              next
+            </span>
           </div>
-          <span
-            className="cursor-pointer font-semibold"
-            onClick={() => nextPage()}
-          >
-            next
-          </span>
         </div>
-      </div>
+      )}
     </>
   );
 }
