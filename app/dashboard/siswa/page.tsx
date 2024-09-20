@@ -228,6 +228,7 @@ function Index() {
         isAdmin={isAdmin}
       >
         <Table
+          noSearch={false}
           items={students}
           loading={loading}
           heads={["NIS", "NISN", "Nama", "Jenis Kelamin", "Kelas", "Status"]}

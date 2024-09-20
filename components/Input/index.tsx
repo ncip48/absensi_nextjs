@@ -12,6 +12,7 @@ interface InputProps {
   info?: string;
   autoFocus?: any;
   onBlur?: any;
+  onChangeText?: any;
 }
 
 function Input({
@@ -26,6 +27,7 @@ function Input({
   info,
   autoFocus,
   onBlur,
+  onChangeText,
   ...otherProps
 }: InputProps) {
   return (
@@ -54,6 +56,7 @@ function Input({
           placeholder={placeholder}
           autoFocus={autoFocus}
           onBlur={onBlur}
+          onChange={onChangeText}
         />
       </div>
       <div className="mt-1 text-xs text-red-500">

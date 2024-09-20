@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Input from "../Input";
 
 interface TableProps {
   items: any[];
@@ -12,6 +13,7 @@ interface TableProps {
   noNo?: boolean;
   noPagination?: boolean;
   wFull?: boolean;
+  noSearch?: boolean;
 }
 
 function Table({
@@ -26,6 +28,7 @@ function Table({
   noNo = false,
   noPagination = false,
   wFull = false,
+  noSearch = true,
 }: TableProps) {
   const edit = (item: any) => {
     onEdit(item);
@@ -36,11 +39,19 @@ function Table({
   };
 
   const [currentPage, setCurrentPage] = useState(1);
+  const [search, setSearch] = useState("");
   const nbPerPage = 10;
+
+  const filteredItems = items.filter((item) =>
+    Object.values(item).some((value) =>
+      String(value).toLowerCase().includes(search.toLowerCase())
+    )
+  );
+
+  const numberOfPages = Math.ceil(filteredItems.length / nbPerPage);
   const lastIndex = currentPage * nbPerPage;
   const startIndex = lastIndex - nbPerPage;
-  const numberOfPages = Math.ceil(items.length / nbPerPage);
-  const records = noPagination ? items : items.slice(startIndex, lastIndex);
+  const records = filteredItems.slice(startIndex, lastIndex);
 
   function nextPage() {
     if (currentPage != numberOfPages) {
@@ -56,6 +67,20 @@ function Table({
 
   return (
     <>
+      {!noSearch && (
+        <div className="max-w-sm px-5 mb-3">
+          <Input
+            name="search"
+            errors={[]}
+            label="Cari"
+            placeholder="Cari data..."
+            onChangeText={(e: any) => {
+              e.preventDefault();
+              setSearch(e.target.value);
+            }}
+          />
+        </div>
+      )}
       <table className={`w-full ${wFull ? "" : "min-w-[640px]"} table-auto`}>
         <thead>
           <tr>
