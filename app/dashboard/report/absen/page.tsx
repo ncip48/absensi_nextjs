@@ -33,15 +33,11 @@ function Index() {
     setLoading(true);
 
     const dStart = dateStart;
-    const dEnd = new Date(
-      new Date(dateEnd).setDate(new Date(dateEnd).getDate() + 1)
-    )
-      .toISOString()
-      .split("T")[0];
+    const dEnd = dateEnd;
 
     let res = await getAttendanceRange(
       dStart + "T00:00:00",
-      dEnd + "T00:00:00"
+      dEnd + "T23:59:00"
     );
     res?.map((item: any) => {
       item.timein_parse = new Date(item.timein).toLocaleTimeString([], {
@@ -98,15 +94,11 @@ function Index() {
     // window.open(url); // Open the PDF in a new tab
 
     const dStart = dateStart;
-    const dEnd = new Date(
-      new Date(dateEnd).setDate(new Date(dateEnd).getDate() + 1)
-    )
-      .toISOString()
-      .split("T")[0];
+    const dEnd = dateEnd;
 
     const res = await printAttendanceRange3(
       dStart + "T00:00:00",
-      dEnd + "T00:00:00"
+      dEnd + "T23:59:00"
     );
     console.log(res);
     const url = URL.createObjectURL(res);

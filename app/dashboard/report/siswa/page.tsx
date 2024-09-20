@@ -43,11 +43,7 @@ function Index() {
     setLoading(true);
 
     const dStart = dateStart;
-    const dEnd = new Date(
-      new Date(dateEnd).setDate(new Date(dateEnd).getDate() + 1)
-    )
-      .toISOString()
-      .split("T")[0];
+    const dEnd = dateEnd;
 
     console.log(student);
     // return;
@@ -58,7 +54,7 @@ function Index() {
 
     let res = await getAttendanceRange(
       dStart + "T00:00:00",
-      dEnd + "T00:00:00",
+      dEnd + "T23:59:00",
       searchIdStudent?.id
     );
     res?.map((item: any) => {
@@ -94,15 +90,11 @@ function Index() {
   const printData = async () => {
     setLoadingPdf(true);
     const dStart = dateStart;
-    const dEnd = new Date(
-      new Date(dateEnd).setDate(new Date(dateEnd).getDate() + 1)
-    )
-      .toISOString()
-      .split("T")[0];
+    const dEnd = dateEnd;
 
     const res = await printAttendanceRange3(
       dStart + "T00:00:00",
-      dEnd + "T00:00:00",
+      dEnd + "T23:59:00",
       "",
       student?.value
     );

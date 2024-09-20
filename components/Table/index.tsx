@@ -117,7 +117,7 @@ function Table({
                       }`}
                     >
                       <p className="block antialiased font-sans text-xs font-semibold text-blue-gray-600">
-                        {index + 1}
+                        {index + 1 + nbPerPage * (currentPage - 1)}
                       </p>
                     </td>
                   )}
