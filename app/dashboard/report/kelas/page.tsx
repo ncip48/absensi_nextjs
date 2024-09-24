@@ -166,7 +166,7 @@ function Index() {
             placeholder="Jumlah Hari Masuk"
             name="haripembagi"
             errors={[]}
-            onChangeText={(e) => {
+            onChangeText={(e: any) => {
               e.preventDefault();
               setHariPembagi(e.target.value);
             }}
