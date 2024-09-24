@@ -14,6 +14,7 @@ import {
 import Button from "@/components/Button";
 import { getSession } from "@/app/lib";
 import { getStudents } from "@/services/actions/student";
+import Input from "@/components/Input";
 
 function Index() {
   const [datas, setDatas] = useState([]);
@@ -31,6 +32,7 @@ function Index() {
   );
   const [classes, setClasses] = useState([]);
   const [kelas, setClass] = useState("");
+  const [haripembagi, setHariPembagi] = useState("");
 
   const getData = async () => {
     setLoading(true);
@@ -85,7 +87,8 @@ function Index() {
       dEnd + "T23:59:00",
       kelas,
       "",
-      "rekap"
+      "rekap",
+      haripembagi
     );
     console.log(res);
     const url = URL.createObjectURL(res);
@@ -159,6 +162,15 @@ function Index() {
             </select>
           </div>
           <Button title="Lihat" onClick={getData} loading={loading} />
+          <Input
+            placeholder="Jumlah Hari Masuk"
+            name="haripembagi"
+            errors={[]}
+            onChangeText={(e) => {
+              e.preventDefault();
+              setHariPembagi(e.target.value);
+            }}
+          />
           <Button title="Cetak PDF" onClick={printData} loading={loadingPdf} />
         </div>
         <Table

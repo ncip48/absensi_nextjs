@@ -171,13 +171,14 @@ export async function printAttendanceRange3(
   dateEnd: string,
   kelas: string = "",
   nis: string = "",
-  tipe: string = ""
+  tipe: string = "",
+  haripembagi?: number
 ) {
   try {
     const storage = await getSession();
     const token = storage.user.token;
     const response = await axios.get(
-      `${baseUrl}/attendances/generatePdf?start=${dateStart}&end=${dateEnd}&nis=${nis}&kelas=${kelas}&tipe=${tipe}`,
+      `${baseUrl}/attendances/generatePdf?start=${dateStart}&end=${dateEnd}&nis=${nis}&kelas=${kelas}&tipe=${tipe}&haripembagi=${haripembagi}`,
       {
         headers: {
           "Content-Type": "application/octet-stream",
