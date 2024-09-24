@@ -172,7 +172,7 @@ export async function printAttendanceRange3(
   kelas: string = "",
   nis: string = "",
   tipe: string = "",
-  haripembagi?: number
+  haripembagi: string = ""
 ) {
   try {
     const storage = await getSession();
