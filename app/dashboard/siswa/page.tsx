@@ -207,9 +207,8 @@ function Index() {
       kelas: "",
     });
     setErrors([]);
-    setEdit(false)
+    setIsEdit(false);
   };
-
 
   const clearInputImport = () => {
     ref.current?.reset();
@@ -217,7 +216,7 @@ function Index() {
       kelas: "",
       file: null,
     });
-    setEdit(false)
+    setIsEdit(false);
     setErrors([]);
   };
 
