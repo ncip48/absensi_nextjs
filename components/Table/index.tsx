@@ -14,6 +14,7 @@ interface TableProps {
   noPagination?: boolean;
   wFull?: boolean;
   noSearch?: boolean;
+  numberPage?: number;
 }
 
 function Table({
@@ -29,6 +30,7 @@ function Table({
   noPagination = false,
   wFull = false,
   noSearch = true,
+  numberPage = 10,
 }: TableProps) {
   const edit = (item: any) => {
     onEdit(item);
@@ -40,7 +42,7 @@ function Table({
 
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
-  const nbPerPage = 10;
+  const nbPerPage = numberPage;
 
   const filteredItems = items.filter((item) =>
     Object.values(item).some((value) =>

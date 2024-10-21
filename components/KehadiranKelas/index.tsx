@@ -19,6 +19,7 @@ const KehadiranKelas = ({ title, data }: { title: string; data: any }) => {
           noStatus
           noPagination
           wFull
+          numberPage={data?.length}
         />
       </div>
     </div>
