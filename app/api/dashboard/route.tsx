@@ -69,6 +69,33 @@ export async function GET(request: NextRequest) {
 
     result.data.topTen = topTen.data.data || [];
 
+    let dateStart = new Date(new Date().setDate(new Date().getDate()))
+      .toISOString()
+      .split("T")[0];
+
+    let dateEnd = new Date(new Date().setDate(new Date().getDate()))
+      .toISOString()
+      .split("T")[0];
+
+    dateStart = dateStart + "T00:00:00";
+    dateEnd = dateEnd + "T23:59:00";
+
+    console.log(dateStart, dateEnd);
+
+    const kehadiranKelas = await axios.get(
+      `${baseUrl}/attendances/dashboard/kehadiran?start=${dateStart}&end=${dateEnd}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    console.log("kehadiran", kehadiranKelas.data);
+
+    result.data.kehadiranKelas = kehadiranKelas.data.data || [];
+
     return NextResponse.json(result);
   } catch (error: any) {
     if (error.response) {

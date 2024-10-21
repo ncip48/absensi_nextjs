@@ -15,6 +15,7 @@ import {
 import { getStatistics } from "@/services/actions/dashboard";
 import useEffectAfterMount from "@/utils/useEffectAfterMount";
 import TopTenAbsent from "@/components/TopTenAbsent";
+import KehadiranKelas from "@/components/KehadiranKelas";
 
 function Index() {
   const [statistics, setStatistics] = useState({
@@ -23,6 +24,7 @@ function Index() {
     terlambat: 0,
     fullTime: 0,
     topTen: [],
+    kehadiranKelas: [],
   });
   const [loading, setLoading] = useState(true);
 
@@ -70,18 +72,24 @@ function Index() {
           />
         </div>
         {!loading ? (
-          <div className="mb-10 grid gap-y-10 gap-x-8 md:grid-cols-1 xl:grid-cols-2">
-            <TopTenAbsent data={statistics?.topTen} title="Top 10 Absen" />
-            <PieChart
-              title="Jumlah Absen Hari Ini"
-              data={[
-                statistics?.tepatWaktu,
-                statistics?.terlambat,
-                statistics?.fullTime,
-              ]}
-              label={["Tepat Waktu", "Terlambat", "Full Time"]}
+          <>
+            <div className="mb-10 grid gap-y-10 gap-x-8 md:grid-cols-1 xl:grid-cols-2">
+              <TopTenAbsent data={statistics?.topTen} title="Top 10 Absen" />
+              <PieChart
+                title="Jumlah Absen Hari Ini"
+                data={[
+                  statistics?.tepatWaktu,
+                  statistics?.terlambat,
+                  statistics?.fullTime,
+                ]}
+                label={["Tepat Waktu", "Terlambat", "Full Time"]}
+              />
+            </div>
+            <KehadiranKelas
+              data={statistics?.kehadiranKelas}
+              title="Absen per Kelas"
             />
-          </div>
+          </>
         ) : null}
       </div>
     </>
